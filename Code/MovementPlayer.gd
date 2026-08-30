@@ -33,8 +33,8 @@ func InputHandler(Delta: float) -> void:
 	else:
 		_Player.velocity.x=lerp(_Player.velocity.x,_Direction.x*_Speed,Delta*_Velocity)
 		_Player.velocity.z=lerp(_Player.velocity.z,_Direction.z*_Speed,Delta*_Velocity)
-
 	_Player.move_and_slide() #didnt add it first, the character wouldn't move. added it in: problem solved.
+
 func GravityHandler(Delta:float) -> void:
 	#The lines check to see if the player is not on the floor, then apply gravity to them if true.
 	Gravity=_Player.get_gravity()
