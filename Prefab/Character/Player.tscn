@@ -6,8 +6,10 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pilut"]
 
-[node name="RootPlayer" type="Node3D" unique_id=1418432344]
+[node name="RootPlayer" type="Node3D" unique_id=1418432344 node_paths=PackedStringArray("Camera", "PlayerBody")]
 script = ExtResource("1_fr4uk")
+Camera = NodePath("RigidBody3D/Camera3D")
+PlayerBody = NodePath("RigidBody3D")
 
 [node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=976045207]
 unique_name_in_owner = true
