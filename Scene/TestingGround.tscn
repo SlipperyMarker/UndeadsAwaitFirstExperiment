@@ -2,6 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://dcvx6mwanr8ij" path="res://Prefab/Character/Player.tscn" id="1_ohjr4"]
 
+[sub_resource type="PlaneMesh" id="PlaneMesh_f56lk"]
+size = Vector2(50, 50)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_6ti6y"]
+points = PackedVector3Array(-25, 0, -25, -25, 0, 25, 25, 0, -25, 25, 0, 25)
+
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6ti6y"]
 sky_top_color = Color(0.43010014, 0.6501944, 0.9486361, 1)
 sky_horizon_color = Color(0.8165849, 0.86393416, 0.92991066, 1)
@@ -17,20 +23,7 @@ sky = SubResource("Sky_ucv7w")
 ssao_enabled = true
 glow_enabled = true
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_f56lk"]
-size = Vector2(50, 50)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_6ti6y"]
-points = PackedVector3Array(-25, 0, -25, -25, 0, 25, 25, 0, -25, 25, 0, 25)
-
 [node name="RootMaster" type="Node3D" unique_id=1856344525]
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2144958780]
-transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
-shadow_enabled = true
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=775454772]
-environment = SubResource("Environment_fkdi6")
 
 [node name="RootEnvironment" type="Node3D" parent="." unique_id=2004770224]
 
@@ -42,5 +35,12 @@ collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RootEnvironment/MeshGround/StaticBody3D" unique_id=2046557251]
 shape = SubResource("ConvexPolygonShape3D_6ti6y")
+
+[node name="LightDirectional" type="DirectionalLight3D" parent="RootEnvironment" unique_id=2144958780]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="RootEnvironment" unique_id=775454772]
+environment = SubResource("Environment_fkdi6")
 
 [node name="RootPlayer" parent="." unique_id=1418432344 instance=ExtResource("1_ohjr4")]
