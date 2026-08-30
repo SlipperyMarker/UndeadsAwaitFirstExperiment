@@ -3,6 +3,7 @@ extends Node3D
 @export var Velocity:float=5
 @export var SprintMultiplier:float=1.25
 @export var CrouchMultiplier:float=0.75
+@export var CrouchHeight:float=0.5
 @export var HealthPoints:float=3
 @export var Stamina:float=10
 @export var DashDistance:float=5
