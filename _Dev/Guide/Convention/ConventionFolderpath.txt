@@ -1,0 +1,2 @@
+# Like how it was stated in ConventionElementNaming.txt Type comes first and Subtypes come after.
+	example: Scene->Map / Scene->Prefab / Scene->Prefab->Intectable / Scene->Prefab->NonInteractable / Scene->Prefab->Character

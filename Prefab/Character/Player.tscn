@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://dcvx6mwanr8ij"]
+
+[ext_resource type="Script" uid="uid://157efkiol8ed" path="res://Code/BrainPlayer.gd" id="1_fr4uk"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_pilut"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pilut"]
+
+[node name="RootPlayer" type="CharacterBody3D" unique_id=1418432344 node_paths=PackedStringArray("Camera", "PlayerBody")]
+script = ExtResource("1_fr4uk")
+Camera = NodePath("Camera3D")
+PlayerBody = NodePath(".")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2040103676]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+layers = 524288
+mesh = SubResource("CapsuleMesh_pilut")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=203953192]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_pilut")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=519775748]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 0)
+cull_mask = 524287
+current = true

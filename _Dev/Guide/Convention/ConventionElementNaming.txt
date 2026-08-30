@@ -1,0 +1,5 @@
+# This Text File Serves as a Guide and reminder as to how things should be named in this project.
+# general naming standard is PascalCase (words without spacing but capital first letters (for example: CharacterBody))
+# Game Element (GE) naming is PascalCase + mandatory Type first naming (example: RootMaster / CharacterMain / WeaponKnife)
+	GE1-The naming for game elements can have multiple types stacked behind each other like "TypeSubtypeCustomname" (Example: WeaponAttachmentPistolSilencer) (The Subtype can be stacked to match what's in mind but beware how the elements beforehand were named)
+	GE2-like stated in GE Type always comes first while Subtypes come after; there can be a lot of subtypes put in the name but based how the naming was done and how it looks and reads some Subtypes take priority over eachother. example is provided in GE1.
