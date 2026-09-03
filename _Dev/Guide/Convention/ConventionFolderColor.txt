@@ -1,0 +1,18 @@
+#this text file tells you about the way the folders are colored in-engine and what they mean.
+(WIP)
+Version1
+
+#----------#
+
+#Grey colored folders contain unvital files to the project and are mostly there like sticky notes.
+For Example this folder holds guides (or reminders) for the developer who's working on the game.
+
+#Red colored folders contain the most important and vital aspects of the project.
+if unhandled improperly, will result in big problems. (example: the Code folder)
+
+#Green colored folders contain replacable elements of the project.
+for example: the asset folder which will contain models / animations / audio / images.
+
+#Yellow / Orange colored folders contains editable elements.
+it is best advised to leave them be mostly if nothing is broken or needs adjustment within them.
+orange: Do not touch if you dont know what you are doing. | yellow: you can touch but be careful.
