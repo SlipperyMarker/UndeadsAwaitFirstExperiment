@@ -47,10 +47,12 @@ func _physics_process(delta: float) -> void:
 
 #-----Per-Input Call-----#
 
-func _input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("Select")and Input.mouse_mode==Input.MOUSE_MODE_VISIBLE:
 		_PlayerMovementLook.MousePointerHandler()
 	elif event.is_action_pressed("Back")and Input.mouse_mode==Input.MOUSE_MODE_CAPTURED:
 		_PlayerMovementLook.MousePointerHandler()
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED && event is InputEventMouseMotion:
 		_PlayerMovementLook.InputHandlerMouse(event)
+	if Input.is_action_just_pressed("Jump") and self.is_on_floor():
+		self.velocity.y=JumpVelocity

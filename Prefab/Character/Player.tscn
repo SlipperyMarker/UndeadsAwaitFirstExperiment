@@ -9,7 +9,6 @@
 [node name="RootPlayer" type="CharacterBody3D" unique_id=1418432344]
 collision_layer = 2
 collision_mask = 5
-axis_lock_linear_y = true
 axis_lock_angular_z = true
 script = ExtResource("1_fr4uk")
 
