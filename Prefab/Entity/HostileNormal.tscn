@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://dgcra1cy8ecq0"]
+
+[ext_resource type="Script" uid="uid://ddr73gj5j223n" path="res://Code/HostileNormalBrain.gd" id="1_5be34"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_57kga"]
+albedo_color = Color(0.9411765, 0.15686275, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_dcp6d"]
+material = SubResource("StandardMaterial3D_57kga")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dcp6d"]
+
+[node name="RootHostileNormal" type="RigidBody3D" unique_id=1284982535]
+collision_layer = 4
+collision_mask = 7
+script = ExtResource("1_5be34")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=931502039]
+mesh = SubResource("CapsuleMesh_dcp6d")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1576014454]
+shape = SubResource("CapsuleShape3D_dcp6d")
