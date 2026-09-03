@@ -1,6 +1,7 @@
 class_name PlayerBrain
 extends CharacterBody3D
 
+#-----Variables-----#
 #Editor-Accesible Variables (you'll thank yourself later)
 @export_category("Dynamic Values")
 @export var MaxHealth:float=3
@@ -15,23 +16,26 @@ extends CharacterBody3D
 @export var CrouchHeight:float=0.5
 @export var Stamina:float=10
 @export_category("Camera Movement Properties")
-@export var Camera:Camera3D
-@export var PlayerBody:CharacterBody3D
 @export var RotationSpeed:float=10
-@export var RotationMultiplier:float=5
-@export var VerticalClamp:float=85
+@export var RotationSpeedMultiplier:float=5
+@export_range(0,110,0.5) var RotationVerticalClamp:float=85
 
-#to use / interactw with the functions from another script, instantiate them here (outside of any functions). also check out static variables.
+#-----Instanciation-----#
+#to use / interactw with the functions from another script, instanciate them here (outside of any functions). also check out static variables.
 var _PlayerMovement=PlayerMovement.new()
+var _PlayerMovementLook=PlayerMovementLook.new()
+
+#-----First-Time Call-----#
 
 func _ready() -> void:
 	#Setter Functions
-	_PlayerMovement.PlayerHandler(self)
-	_PlayerMovement.VarHandler(Speed,Velocity,JumpVelocity,DashDistance,SprintMultiplier,CrouchMultiplier,CrouchHeight,Stamina)
+	_PlayerMovement.VarHandler(self,Speed,Velocity,JumpVelocity,DashDistance,SprintMultiplier,CrouchMultiplier,CrouchHeight,Stamina)
+	_PlayerMovementLook.VarHandler(self,%Camera3D,RotationSpeed,RotationSpeedMultiplier,RotationVerticalClamp)
+
+#-----Per-Frame Call------#
 
 func _physics_process(delta: float) -> void:
-	#Automated Functions Per-Frame
-	#-----"Walking" Movement-----#
+	#"Walking" Movement
 	_PlayerMovement.InputHandler(delta)
 	_PlayerMovement.GravityHandler(delta)
 	#relocated "move_and_slide()" to this script after asking deepseek about the movement code and if the class it extends is the best choice for it, deepseek pointed out that the move_and_slide function should be called separately and not within "InputHandler" because it runs before "GravityHandler" which will cause a one frame delay.

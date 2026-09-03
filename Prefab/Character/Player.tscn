@@ -6,10 +6,8 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pilut"]
 
-[node name="RootPlayer" type="CharacterBody3D" unique_id=1418432344 node_paths=PackedStringArray("Camera", "PlayerBody")]
+[node name="RootPlayer" type="CharacterBody3D" unique_id=1418432344]
 script = ExtResource("1_fr4uk")
-Camera = NodePath("Camera3D")
-PlayerBody = NodePath(".")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2040103676]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
