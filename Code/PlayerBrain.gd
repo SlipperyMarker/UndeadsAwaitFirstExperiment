@@ -8,7 +8,7 @@ extends CharacterBody3D
 @export var Health:float=3
 @export_category("Player Movement Properties")
 @export var Speed:float=5
-@export var Velocity:float=5
+@export var Velocity:float=15
 @export var JumpVelocity:float=5
 @export var DashDistance:float=5
 @export var SprintMultiplier:float=1.25
@@ -16,8 +16,8 @@ extends CharacterBody3D
 @export var CrouchHeight:float=0.5
 @export var Stamina:float=10
 @export_category("Camera Movement Properties")
-@export var RotationSpeed:=0.005
-@export var RotationSpeedMultiplier:=1.0
+const RotationSpeed:float=0.001
+@export_range(0.1,9.9) var RotationSpeedMultiplier:float=1
 @export var RotationVerticalClamp:=deg_to_rad(85)
 
 #-----Instanciation-----#
@@ -40,8 +40,9 @@ func _process(delta: float) -> void:
 	_PlayerMovement.GravityHandler(delta)
 	#relocated "move_and_slide()" to this script after asking deepseek about the movement code and if the class it extends is the best choice for it, deepseek pointed out that the move_and_slide function should be called separately and not within "InputHandler" because it runs before "GravityHandler" which will cause a one frame delay.
 	move_and_slide()
-	
-	#Camera Movement
+@warning_ignore("unused_parameter")
+func _physics_process(delta: float) -> void:
+	#Camera Movement (its a little bit bad, there's a "Rubber band" effect when you drag your mouse too hard / fast and hit the vertical degree limit: it overshoots then corrects its self its kinda annoying.)
 	_PlayerMovementLook.MovementHandler()
 
 #-----Per-Input Call-----#
