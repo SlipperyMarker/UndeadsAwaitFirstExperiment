@@ -44,3 +44,5 @@ shadow_enabled = true
 environment = SubResource("Environment_fkdi6")
 
 [node name="RootPlayer" parent="." unique_id=1418432344 instance=ExtResource("1_ohjr4")]
+RotationSpeed = 0.005
+RotationSpeedMultiplier = 1.0
