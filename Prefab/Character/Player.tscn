@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dcvx6mwanr8ij"]
 
-[ext_resource type="Script" uid="uid://157efkiol8ed" path="res://Code/BrainPlayer.gd" id="1_fr4uk"]
+[ext_resource type="Script" uid="uid://157efkiol8ed" path="res://Code/PlayerBrain.gd" id="1_fr4uk"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_pilut"]
 

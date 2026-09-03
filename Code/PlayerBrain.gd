@@ -1,4 +1,4 @@
-class_name BrainPlayer
+class_name PlayerBrain
 extends CharacterBody3D
 
 #Editor-Accesible Variables (you'll thank yourself later)
@@ -22,14 +22,14 @@ extends CharacterBody3D
 @export var VerticalClamp:float=85
 
 #to use / interactw with the functions from another script, instantiate them here (outside of any functions). also check out static variables.
-var MovementPlayer=PlayerMovement.new()
+var _PlayerMovement=PlayerMovement.new()
 
 func _ready() -> void:
 	#Setter Functions
-	MovementPlayer.PlayerHandler(self)
-	MovementPlayer.VarHandler(Speed,Velocity,JumpVelocity,DashDistance,SprintMultiplier,CrouchMultiplier,CrouchHeight,Stamina)
+	_PlayerMovement.PlayerHandler(self)
+	_PlayerMovement.VarHandler(Speed,Velocity,JumpVelocity,DashDistance,SprintMultiplier,CrouchMultiplier,CrouchHeight,Stamina)
 
 func _physics_process(delta: float) -> void:
 	#Automated Functions Per-Frame
-	MovementPlayer.InputHandler(delta)
-	MovementPlayer.GravityHandler(delta)
+	_PlayerMovement.InputHandler(delta)
+	_PlayerMovement.GravityHandler(delta)
