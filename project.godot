@@ -20,6 +20,17 @@ config/icon="res://icon.svg"
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[file_customization]
+
+folder_colors={
+"res://Asset/": "green",
+"res://Code/": "red",
+"res://Prefab/": "orange",
+"res://Scene/": "yellow",
+"res://_Dev/": "red",
+"res://_Dev/Guide/": "gray"
+}
+
 [input]
 
 MoveForward={
