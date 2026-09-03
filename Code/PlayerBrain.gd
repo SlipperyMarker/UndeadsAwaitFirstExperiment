@@ -31,5 +31,8 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	#Automated Functions Per-Frame
+	#-----"Walking" Movement-----#
 	_PlayerMovement.InputHandler(delta)
 	_PlayerMovement.GravityHandler(delta)
+	#relocated "move_and_slide()" to this script after asking deepseek about the movement code and if the class it extends is the best choice for it, deepseek pointed out that the move_and_slide function should be called separately and not within "InputHandler" because it runs before "GravityHandler" which will cause a one frame delay.
+	move_and_slide()
