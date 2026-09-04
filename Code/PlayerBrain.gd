@@ -11,7 +11,7 @@ extends CharacterBody3D
 @export var Velocity:float=15
 @export var JumpVelocity:float=5
 @export var DashDistance:float=5
-@export var SprintMultiplier:float=1.25
+@export var SprintMultiplier:float=1.75
 @export var CrouchMultiplier:float=0.75
 @export var CrouchHeight:float=0.5
 @export var Stamina:float=10
@@ -19,6 +19,8 @@ extends CharacterBody3D
 const RotationSpeed:float=0.001
 @export_range(0.1,9.9) var RotationSpeedMultiplier:float=1
 @export var RotationVerticalClamp:=deg_to_rad(85)
+#Normal Variables
+var Standing:=true
 
 #-----Instanciation-----#
 #to use / interactw with the functions from another script, instanciate them here (outside of any functions). also check out static variables.
@@ -29,7 +31,7 @@ var _PlayerMovementLook=PlayerMovementLook.new()
 
 func _ready() -> void:
 	#Setter Functions
-	_PlayerMovement.VarHandler(self,Speed,Velocity,JumpVelocity,DashDistance,SprintMultiplier,CrouchMultiplier,CrouchHeight,Stamina) #physical movement
+	_PlayerMovement.VarHandler(self,%CollisionShape3DStanding,%CollisionShape3DCrouch,Speed,Velocity,JumpVelocity,DashDistance,SprintMultiplier,CrouchMultiplier,CrouchHeight,Stamina) #physical movement
 	_PlayerMovementLook.VarHandler(self,%Camera3D,RotationSpeed,RotationSpeedMultiplier,RotationVerticalClamp) #look around (mouse) movement
 
 #-----Per-Frame Call------#
@@ -48,11 +50,13 @@ func _physics_process(delta: float) -> void:
 #-----Per-Input Call-----#
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("Select")and Input.mouse_mode==Input.MOUSE_MODE_VISIBLE:
-		_PlayerMovementLook.MousePointerHandler()
-	elif event.is_action_pressed("Back")and Input.mouse_mode==Input.MOUSE_MODE_CAPTURED:
-		_PlayerMovementLook.MousePointerHandler()
-	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED && event is InputEventMouseMotion:
-		_PlayerMovementLook.InputHandlerMouse(event)
-	if Input.is_action_just_pressed("Jump") and self.is_on_floor():
-		self.velocity.y=JumpVelocity
+	#Automated InputHandlers
+	_PlayerMovementLook.MousePointerHandler(event)
+	_PlayerMovementLook.InputHandlerMouse(event)
+	_PlayerMovement.SprintHandler(event)
+	_PlayerMovement.JumpHandler(event)
+	_PlayerMovement.HeightHandler(event,Standing)
+	_PlayerMovementLook.HeightHandler(event,Standing)
+	#temporary bandaid fixes
+	if Input.is_action_just_pressed("Crouch"):
+		Standing=!Standing

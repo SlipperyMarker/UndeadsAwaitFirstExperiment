@@ -2,25 +2,46 @@
 
 [ext_resource type="Script" uid="uid://157efkiol8ed" path="res://Code/PlayerBrain.gd" id="1_fr4uk"]
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pilut"]
+
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_pilut"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pilut"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fi3qu"]
+height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dysk7"]
+albedo_color = Color(0, 1, 0.37254903, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_57kga"]
+material = SubResource("StandardMaterial3D_dysk7")
+height = 1.0
 
 [node name="RootPlayer" type="CharacterBody3D" unique_id=1418432344]
 collision_layer = 2
 collision_mask = 5
 axis_lock_angular_z = true
 script = ExtResource("1_fr4uk")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2040103676]
-layers = 524288
-mesh = SubResource("CapsuleMesh_pilut")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=203953192]
-shape = SubResource("CapsuleShape3D_pilut")
+RotationSpeedMultiplier = 3.051
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=519775748]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 cull_mask = 524287
 current = true
+
+[node name="CollisionShape3DStanding" type="CollisionShape3D" parent="." unique_id=203953192]
+unique_name_in_owner = true
+shape = SubResource("CapsuleShape3D_pilut")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3DStanding" unique_id=2040103676]
+layers = 524288
+mesh = SubResource("CapsuleMesh_pilut")
+
+[node name="CollisionShape3DCrouch" type="CollisionShape3D" parent="." unique_id=1650286047]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("CapsuleShape3D_fi3qu")
+debug_color = Color(0.9817937, 0, 0.37205806, 0.41960785)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3DCrouch" unique_id=404193309]
+mesh = SubResource("CapsuleMesh_57kga")

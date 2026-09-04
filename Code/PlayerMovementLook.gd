@@ -15,6 +15,7 @@ var Rotator:Vector3
 var RotatorHead:Vector3
 var RotatorBody:Vector3
 
+
 #-----Getter Function-----#
 #sourced from PlayerBrain
 func VarHandler(Pl:CharacterBody3D,Cam:Camera3D,HRS:float,HRSM:float,HRVC:float)->void:
@@ -24,8 +25,9 @@ func VarHandler(Pl:CharacterBody3D,Cam:Camera3D,HRS:float,HRSM:float,HRVC:float)
 
 func InputHandlerMouse (event:InputEvent)->void: #updates the screen movement per Mouse motion iputs.
 	var Eye:InputEvent=event as InputEventMouseMotion
-	HeadRotate=Eye.relative.y*(_HeadRotationSpeed*_HeadRotationSpeedMultiplier)
-	BodyRotate=Eye.relative.x*(_HeadRotationSpeed*_HeadRotationSpeedMultiplier)
+	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED && event is InputEventMouseMotion:
+		HeadRotate=Eye.relative.y*(_HeadRotationSpeed*_HeadRotationSpeedMultiplier)
+		BodyRotate=Eye.relative.x*(_HeadRotationSpeed*_HeadRotationSpeedMultiplier)
 
 func MovementHandler()->void:
 	Rotator.x=clamp(Rotator.x,_HeadRotationVerticalClamp*-1,_HeadRotationVerticalClamp)
@@ -35,8 +37,15 @@ func MovementHandler()->void:
 	_Player.basis=Basis.from_euler(RotatorBody)
 	BodyRotate=0 ; HeadRotate=0
 
-func MousePointerHandler()->void:
-	if Input.mouse_mode==Input.MOUSE_MODE_CAPTURED:
+func HeightHandler(event:InputEvent,Standing:bool)->void:
+	if Input.is_action_just_pressed("Crouch"):
+		if Standing==true:
+			_Camera.position.y=0.2
+		else :
+			_Camera.position.y=0.7
+
+func MousePointerHandler(event:InputEvent)->void:
+	if Input.mouse_mode==Input.MOUSE_MODE_CAPTURED and event.is_action_pressed("Back"):
 		Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
-	elif Input.mouse_mode==Input.MOUSE_MODE_VISIBLE:
+	elif Input.mouse_mode==Input.MOUSE_MODE_VISIBLE and event.is_action_pressed("Select"):
 		Input.mouse_mode=Input.MOUSE_MODE_CAPTURED
