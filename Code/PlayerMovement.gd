@@ -41,6 +41,8 @@ func InputHandler(Delta: float) -> void:
 	#_Player.move_and_slide() #didnt add it first, the character wouldn't move. added it in: problem solved.
 
 func HeightHandler(Standing:bool)->void:
+	#i first settled for a single collider solution about crouching (changing the height) but it would fail because of how jolt physics handles collider sizes. switched over to a 2 collider solution.
+	#i would only use hide and show methods but it wouldn't work: a little google search revealed to me that hide/show does not affect the collider's functionality and instead toggling the "disabled" option within the collider's properties does.
 	if Standing==true:
 		_ColliderStanding.hide();_ColliderStanding.disabled=true
 		_ColliderCrouch.show();_ColliderCrouch.disabled=false
