@@ -13,11 +13,13 @@ var _SprintMultiplier:float
 var _CrouchMultiplier:float
 var _CrouchHeight:float
 var _Stamina:float
+var _ColliderStanding:CollisionShape3D
+var _ColliderCrouch:CollisionShape3D
 
 #-----Getter Function-----#
 #sourced from PlayerBrain
-func VarHandler(PNode:CharacterBody3D,Sp:float,Vl:float,JumpVl:float,Dd:float,Sm:float,Cm:float,Ch:float,S:float)->void:
-	_Player=PNode;_Speed=Sp; _Velocity=Vl;_JumpVelocity=JumpVl;_DashDistance=Dd;_SprintMultiplier=Sm;_CrouchMultiplier=Cm;_CrouchHeight=Ch;_Stamina=S
+func VarHandler(PNode:CharacterBody3D,ColSta:CollisionShape3D,ColCro:CollisionShape3D,Sp:float,Vl:float,JumpVl:float,Dd:float,Sm:float,Cm:float,Ch:float,S:float)->void:
+	_Player=PNode;_ColliderStanding=ColSta;_ColliderCrouch=ColCro;_ColliderCrouch.disabled=true;_Speed=Sp; _Velocity=Vl;_JumpVelocity=JumpVl;_DashDistance=Dd;_SprintMultiplier=Sm;_CrouchMultiplier=Cm;_CrouchHeight=Ch;_Stamina=S
 
 #-----Logic Functions-----#
 
@@ -37,6 +39,15 @@ func InputHandler(Delta: float) -> void:
 	
 	#Will call move_and_slide inside the PlayerBrain script.
 	#_Player.move_and_slide() #didnt add it first, the character wouldn't move. added it in: problem solved.
+
+func HeightHandler(Standing:bool)->void:
+	if Standing==true:
+		_ColliderStanding.hide();_ColliderStanding.disabled=true
+		_ColliderCrouch.show();_ColliderCrouch.disabled=false
+	else:
+		_ColliderStanding.show();_ColliderStanding.disabled=false
+		_ColliderCrouch.hide();_ColliderCrouch.disabled=true
+
 
 func GravityHandler(Delta:float) -> void:
 	#The lines check to see if the player is not on the floor, then apply gravity to them if true.

@@ -19,6 +19,8 @@ extends CharacterBody3D
 const RotationSpeed:float=0.001
 @export_range(0.1,9.9) var RotationSpeedMultiplier:float=1
 @export var RotationVerticalClamp:=deg_to_rad(85)
+#Normal Variables
+var Standing:=true
 
 #-----Instanciation-----#
 #to use / interactw with the functions from another script, instanciate them here (outside of any functions). also check out static variables.
@@ -29,7 +31,7 @@ var _PlayerMovementLook=PlayerMovementLook.new()
 
 func _ready() -> void:
 	#Setter Functions
-	_PlayerMovement.VarHandler(self,Speed,Velocity,JumpVelocity,DashDistance,SprintMultiplier,CrouchMultiplier,CrouchHeight,Stamina) #physical movement
+	_PlayerMovement.VarHandler(self,%CollisionShape3DStanding,%CollisionShape3DCrouch,Speed,Velocity,JumpVelocity,DashDistance,SprintMultiplier,CrouchMultiplier,CrouchHeight,Stamina) #physical movement
 	_PlayerMovementLook.VarHandler(self,%Camera3D,RotationSpeed,RotationSpeedMultiplier,RotationVerticalClamp) #look around (mouse) movement
 
 #-----Per-Frame Call------#
@@ -56,3 +58,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		_PlayerMovementLook.InputHandlerMouse(event)
 	if Input.is_action_just_pressed("Jump") and self.is_on_floor():
 		self.velocity.y=JumpVelocity
+	if Input.is_action_just_pressed("Crouch"):
+		_PlayerMovement.HeightHandler(Standing)
+		_PlayerMovementLook.HeightHandler(Standing)
+		Standing=!Standing
