@@ -11,7 +11,7 @@ extends CharacterBody3D
 @export var Velocity:float=15
 @export var JumpVelocity:float=5
 @export var DashDistance:float=5
-@export var SprintMultiplier:float=1.25
+@export var SprintMultiplier:float=1.75
 @export var CrouchMultiplier:float=0.75
 @export var CrouchHeight:float=0.5
 @export var Stamina:float=10
@@ -50,15 +50,13 @@ func _physics_process(delta: float) -> void:
 #-----Per-Input Call-----#
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("Select")and Input.mouse_mode==Input.MOUSE_MODE_VISIBLE:
-		_PlayerMovementLook.MousePointerHandler()
-	elif event.is_action_pressed("Back")and Input.mouse_mode==Input.MOUSE_MODE_CAPTURED:
-		_PlayerMovementLook.MousePointerHandler()
-	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED && event is InputEventMouseMotion:
-		_PlayerMovementLook.InputHandlerMouse(event)
-	if Input.is_action_just_pressed("Jump") and self.is_on_floor():
-		self.velocity.y=JumpVelocity
+	#Automated InputHandlers
+	_PlayerMovementLook.MousePointerHandler(event)
+	_PlayerMovementLook.InputHandlerMouse(event)
+	_PlayerMovement.SprintHandler(event)
+	_PlayerMovement.JumpHandler(event)
+	_PlayerMovement.HeightHandler(event,Standing)
+	_PlayerMovementLook.HeightHandler(event,Standing)
+	#temporary bandaid fixes
 	if Input.is_action_just_pressed("Crouch"):
-		_PlayerMovement.HeightHandler(Standing)
-		_PlayerMovementLook.HeightHandler(Standing)
 		Standing=!Standing
