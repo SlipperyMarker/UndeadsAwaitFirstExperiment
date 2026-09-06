@@ -19,8 +19,6 @@ extends CharacterBody3D
 const RotationSpeed:float=0.001
 @export_range(0.1,9.9) var RotationSpeedMultiplier:float=1
 @export var RotationVerticalClamp:=deg_to_rad(85)
-#Normal Variables
-var Standing:=true
 
 #-----Instanciation-----#
 #to use / interactw with the functions from another script, instanciate them here (outside of any functions). also check out static variables.
@@ -31,7 +29,7 @@ var _PlayerMovementLook=PlayerMovementLook.new()
 
 func _ready() -> void:
 	#Setter Functions
-	_PlayerMovement.VarHandler(self,%CollisionShape3DStanding,%CollisionShape3DCrouch,Speed,Velocity,JumpVelocity,DashDistance,SprintMultiplier,CrouchMultiplier,CrouchHeight,Stamina) #physical movement
+	_PlayerMovement.VarHandler(self,%Camera3D,%CollisionShape3DStanding,%CollisionShape3DCrouch,Speed,Velocity,JumpVelocity,DashDistance,SprintMultiplier,CrouchMultiplier,CrouchHeight,Stamina) #physical movement
 	_PlayerMovementLook.VarHandler(self,%Camera3D,RotationSpeed,RotationSpeedMultiplier,RotationVerticalClamp) #look around (mouse) movement
 
 #-----Per-Frame Call------#
@@ -42,9 +40,6 @@ func _process(delta: float) -> void:
 	_PlayerMovement.GravityHandler(delta)
 	#relocated "move_and_slide()" to this script after asking deepseek about the movement code and if the class it extends is the best choice for it, deepseek pointed out that the move_and_slide function should be called separately and not within "InputHandler" because it runs before "GravityHandler" which will cause a one frame delay.
 	move_and_slide()
-	#relocated the crouch mechanism from a per-input method to a per-frame method following the temorary crouching fix
-	_PlayerMovement.HeightHandler()
-	_PlayerMovementLook.HeightHandler()
 
 func _physics_process(delta: float) -> void:
 	#Camera Movement (its a little bit bad, there's a "Rubber band" effect when you drag your mouse too hard / fast and hit the vertical degree limit: it overshoots then corrects its self its kinda annoying.)
@@ -58,8 +53,4 @@ func _unhandled_input(event: InputEvent) -> void:
 	_PlayerMovementLook.InputHandlerMouse(event)
 	_PlayerMovement.SprintHandler(event)
 	_PlayerMovement.JumpHandler(event)
-	#_PlayerMovement.HeightHandler(event,Standing)
-	#_PlayerMovementLook.HeightHandler(event,Standing)
-	#temporary bandaid fixes
-	if Input.is_action_just_pressed("Crouch"):
-		Standing=!Standing
+	_PlayerMovement.HeightHandler(event)

@@ -4,6 +4,7 @@ extends RefCounted
 #-----Variables-----#
 #Getter Variables (will be sourced from PlayerBrain)
 var _Player: CharacterBody3D 
+var _Camera: Camera3D
 var Gravity: Vector3
 var _Speed:float
 var _Velocity:float
@@ -18,14 +19,14 @@ var _ColliderCrouch:CollisionShape3D
 #Normal
 var Sprinting:=false
 var Crouching:=false
-var stand:=true
+var Standing:=true
 """debug
 var i:=0;var o:=0"""
 
 #-----Getter Function-----#
 #sourced from PlayerBrain
-func VarHandler(PNode:CharacterBody3D,ColSta:CollisionShape3D,ColCro:CollisionShape3D,Sp:float,Vl:float,JumpVl:float,Dd:float,Sm:float,Cm:float,Ch:float,S:float)->void:
-	_Player=PNode;_ColliderStanding=ColSta;_ColliderCrouch=ColCro;_ColliderCrouch.disabled=true;_Speed=Sp; _Velocity=Vl;_JumpVelocity=JumpVl;_DashDistance=Dd;_SprintMultiplier=Sm;_CrouchMultiplier=Cm;_CrouchHeight=Ch;_Stamina=S
+func VarHandler(PNode:CharacterBody3D,Cam:Camera3D,ColSta:CollisionShape3D,ColCro:CollisionShape3D,Sp:float,Vl:float,JumpVl:float,Dd:float,Sm:float,Cm:float,Ch:float,S:float)->void:
+	_Player=PNode;_Camera=Cam;_ColliderStanding=ColSta;_ColliderCrouch=ColCro;_ColliderCrouch.disabled=true;_Speed=Sp; _Velocity=Vl;_JumpVelocity=JumpVl;_DashDistance=Dd;_SprintMultiplier=Sm;_CrouchMultiplier=Cm;_CrouchHeight=Ch;_Stamina=S
 
 #-----Logic Functions-----#
 
@@ -33,7 +34,6 @@ func InputHandler(Delta: float) -> void:
 	#These lines get movement inputs and move the character
 	var DirectionInput:=Input.get_vector("MoveLeft","MoveRight","MoveForward","MoveBackward")
 	var _Direction:=(_Player.transform.basis*Vector3(DirectionInput.x,0,DirectionInput.y)).normalized()
-	
 	#This if statement applies movement if buttons are pressed
 	if _Direction:
 		_Player.velocity.x=_Direction.x*_Speed
@@ -59,57 +59,28 @@ func GravityHandler(Delta:float) -> void:
 		_Player.velocity.y+=Gravity.y*Delta
 
 func JumpHandler(event:InputEvent)->void:
-	if Input.is_action_just_pressed("Jump") and _Player.is_on_floor():
+	if event.is_action_pressed("Jump") and _Player.is_on_floor():
 		_Player.velocity.y=_JumpVelocity
 
 func SprintHandler(event:InputEvent)->void:
-	if Input.is_action_pressed("MoveFast"):
+	if event.is_action_pressed("MoveFast"):
 		Sprinting=true
-	if Input.is_action_just_released("MoveFast"):
+	if event.is_action_released("MoveFast"):
 		Sprinting=false
 
-func HeightHandler()->void:
-	#Temporary Crouch Fix
-	if Input.is_action_just_pressed("Crouch"):
-	#	i+=1
-	#	print("input received: Crouch from PlayerMovement",i)
-		if stand==true:
+func HeightHandler(event:InputEvent)->void:
+	#note: arguments given to classes/funcs are not for beauty, use them bro (the crouching system was fucked up and unreliable because i would forget to use event. instead of Input.)
+	if event.is_action_pressed("Crouch"):
+		if Standing==true:
 			#added a variable to use if needed (used in speed multiplier)
-			stand=false
-			Crouching=true
+			Standing=!Standing
+			Crouching=!Crouching
 			_ColliderStanding.hide();_ColliderStanding.disabled=true
 			_ColliderCrouch.show();_ColliderCrouch.disabled=false
-	#		o+=1
-	#		print("Crouched from Movement","|",_ColliderCrouch.disabled,"|",o)
+			_Camera.position.y=0.2
 		else:
-			stand=true
-			Crouching=false
+			Standing=!Standing
+			Crouching=!Crouching
 			_ColliderStanding.show();_ColliderStanding.disabled=false
 			_ColliderCrouch.hide();_ColliderCrouch.disabled=true
-	#		o+=1
-	#		print("Stood Up from Movement","|",_ColliderCrouch.disabled,"|",o)
-#func HeightHandler(event:InputEvent,Standing:bool)->void:
-	#i first settled for a single collider solution about crouching (changing the height) but it would fail because of how jolt physics handles collider sizes. switched over to a 2 collider solution.
-	#i would only use hide and show methods but it wouldn't work: a little google search revealed to me that hide/show does not affect the collider's functionality and instead toggling the "disabled" option within the collider's properties does.
-	pass
-	#idk why but methods that get run on _unhandled_input() or _input() methods just give up on doing what's written inside. receives the input but doesnt do shit what the fuck.
-	""" old Crouching method (would work 3 out of 10 times if walking sideways and 7 out of 10 times when walking back and forward)
-	if Input.is_action_just_pressed("Crouch"):
-		i+=1
-		print("input received: Crouch from PlayerMovement",i)
-		if stand==true:
-			#added a variable to use if needed (used in speed multiplier)
-			stand=false
-			Crouching=true
-			_ColliderStanding.hide();_ColliderStanding.disabled=true
-			_ColliderCrouch.show();_ColliderCrouch.disabled=false
-			o+=1
-			print("Crouched from Movement","|",_ColliderCrouch.disabled,"|",o)
-		else:
-			stand=true
-			Crouching=false
-			_ColliderStanding.show();_ColliderStanding.disabled=false
-			_ColliderCrouch.hide();_ColliderCrouch.disabled=true
-			o+=1
-			print("Stood Up from Movement","|",_ColliderCrouch.disabled,"|",o)
-"""
+			_Camera.position.y=0.7
