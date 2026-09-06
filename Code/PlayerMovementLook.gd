@@ -14,6 +14,9 @@ var BodyRotate:=0.0
 var Rotator:Vector3
 var RotatorHead:Vector3
 var RotatorBody:Vector3
+var stand:=true
+"""debug
+var i:=0;var o:=0"""
 
 
 #-----Getter Function-----#
@@ -37,15 +40,42 @@ func MovementHandler()->void:
 	_Player.basis=Basis.from_euler(RotatorBody)
 	BodyRotate=0 ; HeadRotate=0
 
-func HeightHandler(event:InputEvent,Standing:bool)->void:
-	if Input.is_action_just_pressed("Crouch"):
-		if Standing==true:
-			_Camera.position.y=0.2
-		else :
-			_Camera.position.y=0.7
 
 func MousePointerHandler(event:InputEvent)->void:
 	if Input.mouse_mode==Input.MOUSE_MODE_CAPTURED and event.is_action_pressed("Back"):
 		Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 	elif Input.mouse_mode==Input.MOUSE_MODE_VISIBLE and event.is_action_pressed("Select"):
 		Input.mouse_mode=Input.MOUSE_MODE_CAPTURED
+
+func HeightHandler()->void:
+	#Temporary Crouch Fix
+	if Input.is_action_just_pressed("Crouch"):
+#		i+=1
+#		print("input received: Crouch from MouseMovement",i)
+		if stand==true:
+			stand=false
+			_Camera.position.y=0.2
+#			o+=1
+#			print("crouched from camera","|",_Camera.position.y,"|",o)
+		else :
+			stand=true
+			_Camera.position.y=0.7
+#			o+=1
+#			print("stood up from camera","|",_Camera.position.y,"|",o)
+	#explained in PlayerMovement.gd
+	"""old crouching method (explained in PlayerMovement.gd)
+#func HeightHandler(event:InputEvent,Standing:bool)->void:
+	if Input.is_action_just_pressed("Crouch"):
+		i+=1
+		print("input received: Crouch from MouseMovement",i)
+		if stand==true:
+			stand=false
+			_Camera.position.y=0.2
+			o+=1
+			print("crouched from camera","|",_Camera.position.y,"|",o)
+		else :
+			stand=true
+			_Camera.position.y=0.7
+			o+=1
+			print("stood up from camera","|",_Camera.position.y,"|",o)
+"""

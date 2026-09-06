@@ -42,6 +42,9 @@ func _process(delta: float) -> void:
 	_PlayerMovement.GravityHandler(delta)
 	#relocated "move_and_slide()" to this script after asking deepseek about the movement code and if the class it extends is the best choice for it, deepseek pointed out that the move_and_slide function should be called separately and not within "InputHandler" because it runs before "GravityHandler" which will cause a one frame delay.
 	move_and_slide()
+	#relocated the crouch mechanism from a per-input method to a per-frame method following the temorary crouching fix
+	_PlayerMovement.HeightHandler()
+	_PlayerMovementLook.HeightHandler()
 
 func _physics_process(delta: float) -> void:
 	#Camera Movement (its a little bit bad, there's a "Rubber band" effect when you drag your mouse too hard / fast and hit the vertical degree limit: it overshoots then corrects its self its kinda annoying.)
@@ -49,14 +52,14 @@ func _physics_process(delta: float) -> void:
 
 #-----Per-Input Call-----#
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	#Automated InputHandlers
 	_PlayerMovementLook.MousePointerHandler(event)
 	_PlayerMovementLook.InputHandlerMouse(event)
 	_PlayerMovement.SprintHandler(event)
 	_PlayerMovement.JumpHandler(event)
-	_PlayerMovement.HeightHandler(event,Standing)
-	_PlayerMovementLook.HeightHandler(event,Standing)
+	#_PlayerMovement.HeightHandler(event,Standing)
+	#_PlayerMovementLook.HeightHandler(event,Standing)
 	#temporary bandaid fixes
 	if Input.is_action_just_pressed("Crouch"):
 		Standing=!Standing

@@ -18,6 +18,9 @@ var _ColliderCrouch:CollisionShape3D
 #Normal
 var Sprinting:=false
 var Crouching:=false
+var stand:=true
+"""debug
+var i:=0;var o:=0"""
 
 #-----Getter Function-----#
 #sourced from PlayerBrain
@@ -45,8 +48,7 @@ func InputHandler(Delta: float) -> void:
 	#This else statement applies Smoothing. Credits to LesusX.
 	else:
 		_Player.velocity.x=lerp(_Player.velocity.x,_Direction.x*_Speed,Delta*_Velocity)
-		_Player.velocity.z=lerp(_Player.velocity.z,_Direction.z*_Speed,Delta*_Velocity)
-	
+		_Player.velocity.z=lerp(_Player.velocity.z,_Direction.z*_Speed,Delta*_Velocity)	
 	#Will call move_and_slide inside the PlayerBrain script.
 	#_Player.move_and_slide() #didnt add it first, the character wouldn't move. added it in: problem solved.
 
@@ -60,22 +62,54 @@ func JumpHandler(event:InputEvent)->void:
 	if Input.is_action_just_pressed("Jump") and _Player.is_on_floor():
 		_Player.velocity.y=_JumpVelocity
 
-func HeightHandler(event:InputEvent,Standing:bool)->void:
-	#i first settled for a single collider solution about crouching (changing the height) but it would fail because of how jolt physics handles collider sizes. switched over to a 2 collider solution.
-	#i would only use hide and show methods but it wouldn't work: a little google search revealed to me that hide/show does not affect the collider's functionality and instead toggling the "disabled" option within the collider's properties does.
-	if Input.is_action_just_pressed("Crouch"):
-		if Standing==true:
-			#added a variable to use if needed (used in speed multiplier)
-			Crouching=!Crouching
-			_ColliderStanding.hide();_ColliderStanding.disabled=true
-			_ColliderCrouch.show();_ColliderCrouch.disabled=false
-		else:
-			Crouching=!Crouching
-			_ColliderStanding.show();_ColliderStanding.disabled=false
-			_ColliderCrouch.hide();_ColliderCrouch.disabled=true
-
 func SprintHandler(event:InputEvent)->void:
 	if Input.is_action_pressed("MoveFast"):
 		Sprinting=true
 	if Input.is_action_just_released("MoveFast"):
 		Sprinting=false
+
+func HeightHandler()->void:
+	#Temporary Crouch Fix
+	if Input.is_action_just_pressed("Crouch"):
+	#	i+=1
+	#	print("input received: Crouch from PlayerMovement",i)
+		if stand==true:
+			#added a variable to use if needed (used in speed multiplier)
+			stand=false
+			Crouching=true
+			_ColliderStanding.hide();_ColliderStanding.disabled=true
+			_ColliderCrouch.show();_ColliderCrouch.disabled=false
+	#		o+=1
+	#		print("Crouched from Movement","|",_ColliderCrouch.disabled,"|",o)
+		else:
+			stand=true
+			Crouching=false
+			_ColliderStanding.show();_ColliderStanding.disabled=false
+			_ColliderCrouch.hide();_ColliderCrouch.disabled=true
+	#		o+=1
+	#		print("Stood Up from Movement","|",_ColliderCrouch.disabled,"|",o)
+#func HeightHandler(event:InputEvent,Standing:bool)->void:
+	#i first settled for a single collider solution about crouching (changing the height) but it would fail because of how jolt physics handles collider sizes. switched over to a 2 collider solution.
+	#i would only use hide and show methods but it wouldn't work: a little google search revealed to me that hide/show does not affect the collider's functionality and instead toggling the "disabled" option within the collider's properties does.
+	pass
+	#idk why but methods that get run on _unhandled_input() or _input() methods just give up on doing what's written inside. receives the input but doesnt do shit what the fuck.
+	""" old Crouching method (would work 3 out of 10 times if walking sideways and 7 out of 10 times when walking back and forward)
+	if Input.is_action_just_pressed("Crouch"):
+		i+=1
+		print("input received: Crouch from PlayerMovement",i)
+		if stand==true:
+			#added a variable to use if needed (used in speed multiplier)
+			stand=false
+			Crouching=true
+			_ColliderStanding.hide();_ColliderStanding.disabled=true
+			_ColliderCrouch.show();_ColliderCrouch.disabled=false
+			o+=1
+			print("Crouched from Movement","|",_ColliderCrouch.disabled,"|",o)
+		else:
+			stand=true
+			Crouching=false
+			_ColliderStanding.show();_ColliderStanding.disabled=false
+			_ColliderCrouch.hide();_ColliderCrouch.disabled=true
+			o+=1
+			print("Stood Up from Movement","|",_ColliderCrouch.disabled,"|",o)
+"""
