@@ -15,9 +15,6 @@ var Rotator:Vector3
 var RotatorHead:Vector3
 var RotatorBody:Vector3
 var stand:=true
-"""debug
-var i:=0;var o:=0"""
-
 
 #-----Getter Function-----#
 #sourced from PlayerBrain
@@ -39,7 +36,6 @@ func MovementHandler()->void:
 	_Camera.transform.basis=Basis.from_euler(RotatorHead) ; _Camera.rotation.z=0
 	_Player.basis=Basis.from_euler(RotatorBody)
 	BodyRotate=0 ; HeadRotate=0
-
 
 func MousePointerHandler(event:InputEvent)->void:
 	if Input.mouse_mode==Input.MOUSE_MODE_CAPTURED and event.is_action_pressed("Back"):
