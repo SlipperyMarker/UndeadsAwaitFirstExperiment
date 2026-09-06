@@ -48,7 +48,7 @@ func InputHandler(Delta: float) -> void:
 	#This else statement applies Smoothing. Credits to LesusX.
 	else:
 		_Player.velocity.x=lerp(_Player.velocity.x,_Direction.x*_Speed,Delta*_Velocity)
-		_Player.velocity.z=lerp(_Player.velocity.z,_Direction.z*_Speed,Delta*_Velocity)	
+		_Player.velocity.z=lerp(_Player.velocity.z,_Direction.z*_Speed,Delta*_Velocity)
 	#Will call move_and_slide inside the PlayerBrain script.
 	#_Player.move_and_slide() #didnt add it first, the character wouldn't move. added it in: problem solved.
 
