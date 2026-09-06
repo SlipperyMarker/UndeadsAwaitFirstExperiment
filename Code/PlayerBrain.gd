@@ -20,7 +20,7 @@ const RotationSpeed:float=0.001
 @export_range(0.1,9.9) var RotationSpeedMultiplier:float=1
 @export var RotationVerticalClamp:=deg_to_rad(85)
 #Normal Variables
-var Standing:=true
+#var Standing:=true
 
 #-----Instanciation-----#
 #to use / interactw with the functions from another script, instanciate them here (outside of any functions). also check out static variables.
@@ -61,5 +61,5 @@ func _unhandled_input(event: InputEvent) -> void:
 	#_PlayerMovement.HeightHandler(event,Standing)
 	#_PlayerMovementLook.HeightHandler(event,Standing)
 	#temporary bandaid fixes
-	if Input.is_action_just_pressed("Crouch"):
-		Standing=!Standing
+#	if Input.is_action_just_pressed("Crouch"):
+#		Standing=!Standing
