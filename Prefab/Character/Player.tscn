@@ -40,6 +40,7 @@ mesh = SubResource("CapsuleMesh_pilut")
 [node name="CollisionShape3DCrouch" type="CollisionShape3D" parent="." unique_id=1650286047]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+visible = false
 shape = SubResource("CapsuleShape3D_fi3qu")
 debug_color = Color(0.9817937, 0, 0.37205806, 0.41960785)
 
