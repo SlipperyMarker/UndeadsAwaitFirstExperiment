@@ -52,7 +52,7 @@ func _physics_process(delta: float) -> void:
 
 #-----Per-Input Call-----#
 
-func _input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	#Automated InputHandlers
 	_PlayerMovementLook.MousePointerHandler(event)
 	_PlayerMovementLook.InputHandlerMouse(event)
