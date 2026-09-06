@@ -20,8 +20,6 @@ var _ColliderCrouch:CollisionShape3D
 var Sprinting:=false
 var Crouching:=false
 var Standing:=true
-"""debug
-var i:=0;var o:=0"""
 
 #-----Getter Function-----#
 #sourced from PlayerBrain
