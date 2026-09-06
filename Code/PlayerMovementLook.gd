@@ -46,36 +46,3 @@ func MousePointerHandler(event:InputEvent)->void:
 		Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 	elif Input.mouse_mode==Input.MOUSE_MODE_VISIBLE and event.is_action_pressed("Select"):
 		Input.mouse_mode=Input.MOUSE_MODE_CAPTURED
-""" straight up moved this shit to PlayerMovement.gd
-func HeightHandler()->void:
-	#Temporary Crouch Fix
-	if Input.is_action_just_pressed("Crouch"):
-#		i+=1
-#		print("input received: Crouch from MouseMovement",i)
-		if stand==true:
-			stand=false
-			_Camera.position.y=0.2
-#			o+=1
-#			print("crouched from camera","|",_Camera.position.y,"|",o)
-		else :
-			stand=true
-			_Camera.position.y=0.7
-#			o+=1
-#			print("stood up from camera","|",_Camera.position.y,"|",o)
-	#explained in PlayerMovement.gd
-	old crouching method (explained in PlayerMovement.gd)
-#func HeightHandler(event:InputEvent,Standing:bool)->void:
-	if Input.is_action_just_pressed("Crouch"):
-		i+=1
-		print("input received: Crouch from MouseMovement",i)
-		if stand==true:
-			stand=false
-			_Camera.position.y=0.2
-			o+=1
-			print("crouched from camera","|",_Camera.position.y,"|",o)
-		else :
-			stand=true
-			_Camera.position.y=0.7
-			o+=1
-			print("stood up from camera","|",_Camera.position.y,"|",o)
-"""
