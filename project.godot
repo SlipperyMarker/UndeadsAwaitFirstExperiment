@@ -29,7 +29,8 @@ folder_colors={
 "res://Prefab/": "orange",
 "res://Scene/": "yellow",
 "res://_Dev/": "red",
-"res://_Dev/Guide/": "gray"
+"res://_Dev/Guide/": "gray",
+"res://_Dev/To Do/": "yellow"
 }
 
 [input]
