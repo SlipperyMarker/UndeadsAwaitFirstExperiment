@@ -22,12 +22,18 @@ collision_mask = 5
 axis_lock_angular_z = true
 script = ExtResource("1_fr4uk")
 RotationSpeedMultiplier = 3.051
+AttackRangeSetter = 37.5
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=519775748]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 cull_mask = 524287
 current = true
+
+[node name="RayCast3D" type="RayCast3D" parent="Camera3D" unique_id=1715435344]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.18, 0)
+collision_mask = 4
 
 [node name="CollisionShape3DStanding" type="CollisionShape3D" parent="." unique_id=203953192]
 unique_name_in_owner = true
