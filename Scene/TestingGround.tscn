@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://syivbrykmoro" path="res://Code/SpawnHostileNormal.gd" id="1_4ri7c"]
 [ext_resource type="PackedScene" uid="uid://dcvx6mwanr8ij" path="res://Prefab/Character/Player.tscn" id="1_ohjr4"]
 [ext_resource type="PackedScene" uid="uid://dyqfg366jek18" path="res://Prefab/NonInteractable/GroundMesh.tscn" id="2_4ri7c"]
-[ext_resource type="PackedScene" uid="uid://dgcra1cy8ecq0" path="res://Prefab/Entity/HostileNormal.tscn" id="2_fi3qu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6ti6y"]
 sky_top_color = Color(0.43010014, 0.6501944, 0.9486361, 1)
@@ -28,9 +27,9 @@ _data = {
 }
 point_count = 8
 
-[node name="RootMaster" type="Node3D" unique_id=1856344525 node_paths=PackedStringArray("player")]
+[node name="RootMaster" type="Node3D" unique_id=1856344525]
 script = ExtResource("1_4ri7c")
-player = NodePath("RootPlayer")
+MaxHostileAmount = 20
 
 [node name="RootPlayer" parent="." unique_id=1418432344 instance=ExtResource("1_ohjr4")]
 unique_name_in_owner = true
@@ -74,67 +73,9 @@ transform = Transform3D(0.25529, 0.32556817, 0, -0.0879034, 0.94551855, 0, 0, 0,
 transform = Transform3D(0.25542262, -0.3241375, 0, 0.08751712, 0.9460098, 0, 0, 0, 1, -31.183773, 0.825, 0)
 
 [node name="Path3D" type="Path3D" parent="." unique_id=274034335]
-transform = Transform3D(0.635, 0, 0, 0, 0.635, 0, 0, 0, 0.635, 0, 4.165, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.165, 0)
 curve = SubResource("Curve3D_4ri7c")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D" unique_id=38229339]
 unique_name_in_owner = true
-transform = Transform3D(0.99985904, 9.507723e-05, 0.016616749, 7.275937e-12, 0.99997437, -0.0057216296, -0.01661712, 0.0057208366, 0.9998367, 33.497585, -0.19203663, 20.674526)
-
-[node name="enemies" type="Node" parent="." unique_id=942586618]
-
-[node name="RootHostileNormal" parent="enemies" unique_id=1284982535 instance=ExtResource("2_fi3qu")]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.067883, 2.5597572, 0.8762188)
-
-[node name="RootHostileNormal2" parent="enemies" unique_id=879610466 instance=ExtResource("2_fi3qu")]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.067883, 2.5597572, 9.779499)
-
-[node name="RootHostileNormal3" parent="enemies" unique_id=1773932940 instance=ExtResource("2_fi3qu")]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.067883, 2.5597572, -10.381445)
-
-[node name="RootHostileNormal4" parent="enemies" unique_id=1173110206 instance=ExtResource("2_fi3qu")]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.0165615, 2.5597572, -34.37001)
-
-[node name="RootHostileNormal5" parent="enemies" unique_id=747956708 instance=ExtResource("2_fi3qu")]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.890779, 2.5597572, -34.37001)
-
-[node name="RootHostileNormal6" parent="enemies" unique_id=1372104109 instance=ExtResource("2_fi3qu")]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.1443276, 2.5597572, -34.37001)
-
-[node name="RootHostileNormal7" parent="enemies" unique_id=2047250871 instance=ExtResource("2_fi3qu")]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.852856, 2.5597572, -34.37001)
-
-[node name="RootHostileNormal8" parent="enemies" unique_id=641313639 instance=ExtResource("2_fi3qu")]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.116512, 2.5597572, -21.630817)
-
-[node name="RootHostileNormal9" parent="enemies" unique_id=847587705 instance=ExtResource("2_fi3qu")]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.100613, 2.5597572, -9.683533)
-
-[node name="RootHostileNormal10" parent="enemies" unique_id=335901581 instance=ExtResource("2_fi3qu")]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.334484, 2.5597572, 8.164429)
-
-[node name="RootHostileNormal11" parent="enemies" unique_id=1340739514 instance=ExtResource("2_fi3qu")]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.990421, 2.5597572, 33.95162)
-
-[node name="RootHostileNormal12" parent="enemies" unique_id=33878676 instance=ExtResource("2_fi3qu")]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.93836, 2.5597572, 33.95162)
-
-[node name="RootHostileNormal13" parent="enemies" unique_id=2114851958 instance=ExtResource("2_fi3qu")]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.68102455, 2.5597572, 33.95162)
-
-[node name="RootHostileNormal14" parent="enemies" unique_id=461896860 instance=ExtResource("2_fi3qu")]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.173368, 2.5597572, 33.95162)
+transform = Transform3D(0.9998587, 9.50772e-05, 0.016616743, 7.275934e-12, 0.999974, -0.0057216273, -0.016617114, 0.0057208347, 0.9998363, 33.497585, -0.19203663, 20.674526)

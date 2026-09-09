@@ -29,13 +29,15 @@ var damaged:=false
 #to use / interactw with the functions from another script, instanciate them here (outside of any functions). also check out static variables.
 var _PlayerMovement=PlayerMovement.new()
 var _PlayerMovementLook=PlayerMovementLook.new()
-var _HostileBrain=HostileBrain.new()
+
 #-----First-Time Call-----#
 
 func _ready() -> void:
 	#Setter Functions
 	_PlayerMovement.VarHandler(self,%Camera3D,%CollisionShape3DStanding,%CollisionShape3DCrouch,Speed,Velocity,JumpVelocity,DashDistance,SprintMultiplier,CrouchMultiplier,CrouchHeight,Stamina) #physical movement
 	_PlayerMovementLook.VarHandler(self,%Camera3D,RotationSpeed,RotationSpeedMultiplier,RotationVerticalClamp) #look around (mouse) movement
+	#Goated heads up by Claude AI (told me about Groups without spoiling too much. thank you Claude)
+	add_to_group("Player")
 	#variable setup
 	var AttackRange:float=AttackRangeSetter*-1
 	%RayCast3D.target_position.z=AttackRange
