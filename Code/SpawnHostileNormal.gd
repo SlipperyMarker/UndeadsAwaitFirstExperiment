@@ -1,5 +1,4 @@
 extends Node3D
-@export var Cooldown :=21.5
 var spawnenable:=true
 @export var MaxHostileAmount:int=10
 var HostileAmount:int
