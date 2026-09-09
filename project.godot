@@ -15,7 +15,7 @@ config/tags=PackedStringArray("firstperson", "shooter")
 run/main_scene="uid://dnyoqqvu2qjht"
 config/features=PackedStringArray("4.7", "Forward Plus")
 boot_splash/show_image=false
-config/icon="res://icon.svg"
+config/icon="uid://c2ol827xh701c"
 
 [display]
 
