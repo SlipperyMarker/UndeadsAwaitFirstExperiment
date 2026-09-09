@@ -19,7 +19,12 @@ extends CharacterBody3D
 const RotationSpeed:float=0.001
 @export_range(0.1,9.9) var RotationSpeedMultiplier:float=1
 @export var RotationVerticalClamp:=deg_to_rad(85)
-
+#temporary attack system properties
+@export_range(0,50,0.5) var AttackRangeSetter :float=20
+@export var PlayerDamage:float = 3
+var alive:=true
+var damaged:=false
+@export var DamageShield:float=2
 #-----Instanciation-----#
 #to use / interactw with the functions from another script, instanciate them here (outside of any functions). also check out static variables.
 var _PlayerMovement=PlayerMovement.new()
@@ -31,19 +36,43 @@ func _ready() -> void:
 	#Setter Functions
 	_PlayerMovement.VarHandler(self,%Camera3D,%CollisionShape3DStanding,%CollisionShape3DCrouch,Speed,Velocity,JumpVelocity,DashDistance,SprintMultiplier,CrouchMultiplier,CrouchHeight,Stamina) #physical movement
 	_PlayerMovementLook.VarHandler(self,%Camera3D,RotationSpeed,RotationSpeedMultiplier,RotationVerticalClamp) #look around (mouse) movement
+	#Goated heads up by Claude AI (told me about Groups without spoiling too much. thank you Claude)
+	add_to_group("Player")
+	#variable setup
+	var AttackRange:float=AttackRangeSetter*-1
+	%RayCast3D.target_position.z=AttackRange
 
 #-----Per-Frame Call------#
 
 func _process(delta: float) -> void:
 	#"Walking" Movement
-	_PlayerMovement.InputHandler(delta)
+	if alive:
+		_PlayerMovement.InputHandler(delta)
+		move_and_slide()
 	_PlayerMovement.GravityHandler(delta)
 	#relocated "move_and_slide()" to this script after asking deepseek about the movement code and if the class it extends is the best choice for it, deepseek pointed out that the move_and_slide function should be called separately and not within "InputHandler" because it runs before "GravityHandler" which will cause a one frame delay.
-	move_and_slide()
 
 func _physics_process(delta: float) -> void:
 	#Camera Movement (its a little bit bad, there's a "Rubber band" effect when you drag your mouse too hard / fast and hit the vertical degree limit: it overshoots then corrects its self its kinda annoying.)
-	_PlayerMovementLook.MovementHandler()
+	if alive:
+		_PlayerMovementLook.MovementHandler()
+	#temporary Enemy Attacker Handler
+		if %RayCast3D.is_colliding():
+			var Collided:Node=%RayCast3D.get_collider()
+			if Collided and is_instance_valid(Collided) and Input.is_action_just_pressed("Select") and Collided.has_method("DamageMe"):
+				Collided.DamageMe(PlayerDamage)
+
+func DamageMe(EnemyDamage)->void:
+	if !damaged:
+		print("attacked!")
+		Health-=EnemyDamage
+		damaged=true
+		await get_tree().create_timer(DamageShield).timeout
+		damaged=false
+	if Health<=0:
+		KillMe()
+func KillMe()->void:
+	alive=false
 
 #-----Per-Input Call-----#
 

@@ -1,13 +1,8 @@
 [gd_scene format=3 uid="uid://dnyoqqvu2qjht"]
 
+[ext_resource type="Script" uid="uid://syivbrykmoro" path="res://Code/SpawnHostileNormal.gd" id="1_4ri7c"]
 [ext_resource type="PackedScene" uid="uid://dcvx6mwanr8ij" path="res://Prefab/Character/Player.tscn" id="1_ohjr4"]
-[ext_resource type="PackedScene" uid="uid://dgcra1cy8ecq0" path="res://Prefab/Entity/HostileNormal.tscn" id="2_fi3qu"]
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_f56lk"]
-size = Vector2(50, 50)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_6ti6y"]
-points = PackedVector3Array(-25, 0, -25, -25, 0, 25, 25, 0, -25, 25, 0, 25)
+[ext_resource type="PackedScene" uid="uid://dyqfg366jek18" path="res://Prefab/NonInteractable/GroundMesh.tscn" id="2_4ri7c"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6ti6y"]
 sky_top_color = Color(0.43010014, 0.6501944, 0.9486361, 1)
@@ -24,26 +19,23 @@ sky = SubResource("Sky_ucv7w")
 ssao_enabled = true
 glow_enabled = true
 
+[sub_resource type="Curve3D" id="Curve3D_4ri7c"]
+closed = true
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 33.497585, -0.19203663, 20.674526, 0, 0, 0, 0, 0, 0, 32.762997, 0.06090355, -23.525982, 0, 0, 0, 0, 0, 0, 24.25294, 1.2732573, -33.428078, 0, 0, 0, 0, 0, 0, -23.145481, 1.286993, -33.3579, 0, 0, 0, 0, 0, 0, -31.82635, 0.6048298, -23.663528, 0, 0, 0, 0, 0, 0, -31.275785, 0.7934742, 20.84556, 0, 0, 0, 0, 0, 0, -22.866243, 1.3478165, 33.209297, 0, 0, 0, 0, 0, 0, 21.784557, 1.0168247, 34.80173),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 8
+
 [node name="RootMaster" type="Node3D" unique_id=1856344525]
+script = ExtResource("1_4ri7c")
+MaxHostileAmount = 20
 
 [node name="RootPlayer" parent="." unique_id=1418432344 instance=ExtResource("1_ohjr4")]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="RootEnvironment" type="Node3D" parent="." unique_id=2004770224]
-
-[node name="MeshGround" type="MeshInstance3D" parent="RootEnvironment" unique_id=1171383636]
-mesh = SubResource("PlaneMesh_f56lk")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="RootEnvironment/MeshGround" unique_id=225975344]
-collision_mask = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RootEnvironment/MeshGround/StaticBody3D" unique_id=2046557251]
-shape = SubResource("ConvexPolygonShape3D_6ti6y")
-
-[node name="CSGBox3D" type="CSGBox3D" parent="RootEnvironment/MeshGround" unique_id=1026388791]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1349924, -4.777769)
-use_collision = true
-collision_mask = 0
 
 [node name="LightDirectional" type="DirectionalLight3D" parent="RootEnvironment" unique_id=2144958780]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
@@ -52,5 +44,38 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="RootEnvironment" unique_id=775454772]
 environment = SubResource("Environment_fkdi6")
 
-[node name="RootHostileNormal" parent="." unique_id=1284982535 instance=ExtResource("2_fi3qu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5708055, 1, -9.1850815)
+[node name="ground" type="Node" parent="RootEnvironment" unique_id=812840005]
+
+[node name="MeshGround3" parent="RootEnvironment/ground" unique_id=2113980933 instance=ExtResource("2_4ri7c")]
+transform = Transform3D(0.9999999, 0, 0, 0, 0.97907454, -0.09055833, 0, 0.20350185, 0.4356882, 0, 0.825, 35.724632)
+
+[node name="MeshGround4" parent="RootEnvironment/ground" unique_id=1084901929 instance=ExtResource("2_4ri7c")]
+transform = Transform3D(0.9999999, 0, 0, 0, 0.9813664, 0.08550498, 0, -0.19214606, 0.4367081, 0, 0.825, -35.71749)
+
+[node name="MeshGround" parent="RootEnvironment/ground" unique_id=349308529 instance=ExtResource("2_4ri7c")]
+
+[node name="MeshGround6" parent="RootEnvironment/ground" unique_id=476034596 instance=ExtResource("2_4ri7c")]
+transform = Transform3D(-5.2453664e-09, -1, 0, 0.12, -4.371139e-08, 0, 0, 0, 1, 24.151287, 0, 0)
+
+[node name="MeshGround7" parent="RootEnvironment/ground" unique_id=1082046583 instance=ExtResource("2_4ri7c")]
+transform = Transform3D(5.2453664e-09, 1, -8.742278e-08, 0.12, -4.371139e-08, 0, -4.585645e-16, -8.742278e-08, -1, -24.810844, 0, 0)
+
+[node name="MeshGround8" parent="RootEnvironment/ground" unique_id=2052950831 instance=ExtResource("2_4ri7c")]
+transform = Transform3D(2.2928226e-16, 4.371139e-08, 1, 0.12, -4.371139e-08, 0, 5.2453664e-09, 1, -4.371139e-08, 0, 0, -24.779478)
+
+[node name="MeshGround9" parent="RootEnvironment/ground" unique_id=1471462990 instance=ExtResource("2_4ri7c")]
+transform = Transform3D(2.2928226e-16, 4.371139e-08, -1, 0.12, -4.371139e-08, 0, -5.2453664e-09, -1, -4.371139e-08, 0, 0, 24.974783)
+
+[node name="MeshGround2" parent="RootEnvironment/ground" unique_id=35436296 instance=ExtResource("2_4ri7c")]
+transform = Transform3D(0.25529, 0.32556817, 0, -0.0879034, 0.94551855, 0, 0, 0, 1, 30.5439, 0.825, 0)
+
+[node name="MeshGround5" parent="RootEnvironment/ground" unique_id=2032763182 instance=ExtResource("2_4ri7c")]
+transform = Transform3D(0.25542262, -0.3241375, 0, 0.08751712, 0.9460098, 0, 0, 0, 1, -31.183773, 0.825, 0)
+
+[node name="Path3D" type="Path3D" parent="." unique_id=274034335]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.165, 0)
+curve = SubResource("Curve3D_4ri7c")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D" unique_id=38229339]
+unique_name_in_owner = true
+transform = Transform3D(0.9998587, 9.50772e-05, 0.016616743, 7.275934e-12, 0.999974, -0.0057216273, -0.016617114, 0.0057208347, 0.9998363, 33.497585, -0.19203663, 20.674526)
