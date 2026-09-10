@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://daphnbup1g6bs"]
+
+[ext_resource type="Script" uid="uid://bb0cfnlvybt7s" path="res://Code/player_health.gd" id="1_7iwht"]
+
+[node name="PlayerHealth" type="Control" unique_id=1680325266]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_7iwht")
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=12130440]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 386.592
+offset_bottom = 27.0
+theme_override_constants/outline_size = 6
+
+[node name="Label" type="Label" parent="." unique_id=1164973822]
+layout_mode = 0
+offset_right = 104.0
+offset_bottom = 23.0
+theme_override_constants/outline_size = 8
+text = "Player Health"

@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://bigd8jqf4cs7j"]
+
+[ext_resource type="Script" uid="uid://baysmwmobloc3" path="res://Code/ammo.gd" id="1_4qgrq"]
+
+[node name="Ammo" type="Control" unique_id=1175836230]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_4qgrq")
+
+[node name="Label" type="Label" parent="." unique_id=1631032684]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_constants/outline_size = 6

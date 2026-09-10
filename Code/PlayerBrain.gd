@@ -5,7 +5,7 @@ extends CharacterBody3D
 #Editor-Accesible Variables (you'll thank yourself later)
 @export_category("Dynamic Values")
 @export var MaxHealth:float=3
-@export var Health:float=3
+var Health:float
 @export_category("Player Movement Properties")
 @export var Speed:float=5
 @export var Velocity:float=15
@@ -20,7 +20,7 @@ const RotationSpeed:float=0.001
 @export_range(0.1,9.9) var RotationSpeedMultiplier:float=1
 @export var RotationVerticalClamp:=deg_to_rad(85)
 #temporary attack system properties
-@export_range(0,50,0.5) var AttackRangeSetter :float=20
+@export var AttackRangeSetter :float=50
 @export var PlayerDamage:float = 3
 var alive:=true
 var damaged:=false
@@ -29,7 +29,7 @@ var damaged:=false
 #to use / interactw with the functions from another script, instanciate them here (outside of any functions). also check out static variables.
 var _PlayerMovement=PlayerMovement.new()
 var _PlayerMovementLook=PlayerMovementLook.new()
-
+@onready var pistol=%pistal
 #-----First-Time Call-----#
 
 func _ready() -> void:
@@ -39,6 +39,7 @@ func _ready() -> void:
 	#Goated heads up by Claude AI (told me about Groups without spoiling too much. thank you Claude)
 	add_to_group("Player")
 	#variable setup
+	Health=MaxHealth
 	var AttackRange:float=AttackRangeSetter*-1
 	%RayCast3D.target_position.z=AttackRange
 
@@ -59,23 +60,35 @@ func _physics_process(delta: float) -> void:
 	#temporary Enemy Attacker Handler
 		if Input.is_action_just_pressed("Select"):
 			%pistal._ShootingAnimation()
-			if %RayCast3D.is_colliding():
+			if %RayCast3D.is_colliding() and %pistal.Ammo>0:
 				var Collided:Node=%RayCast3D.get_collider()
 				if Collided and is_instance_valid(Collided) and Collided.has_method("DamageMe"):
 					Collided.DamageMe(PlayerDamage)
 
+func _GetMaxAmmo()->String:
+	return str(%pistal.MaxAmmo)
+func _GetAmmo()->String:
+	return str(%pistal.Ammo)
+
 func DamageMe(EnemyDamage:float)->void:
-	if !damaged:
+	if !damaged and alive:
 		print("attacked!")
 		Health-=EnemyDamage
 		damaged=true
 		await get_tree().create_timer(DamageShield).timeout
 		damaged=false
+		%Sprite2D.self_modulate=100
 	if Health<=0:
+		%Sprite2D.self_modulate.a=255
+		remove_from_group("Player")
+		%pistal.aiming=false
+		%pistal.Ammo=0
 		KillMe()
 func KillMe()->void:
 	alive=false
 
+func _Healed()->void:
+	%Sprite2D.self_modulate=0
 #-----Per-Input Call-----#
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -86,3 +99,6 @@ func _unhandled_input(event: InputEvent) -> void:
 	_PlayerMovement.JumpHandler(event)
 	_PlayerMovement.HeightHandler(event)
 	%pistal._AimDownSights(event,alive)
+	%pistal._ReloadAnimation(event,alive)
+	if event.is_action_pressed("MoveFast") and %pistal.aiming:
+		%pistal.aiming=false

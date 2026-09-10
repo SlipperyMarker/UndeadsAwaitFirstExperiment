@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://cfotgnlnjp0jm"]
+
+[ext_resource type="Script" uid="uid://begb7qf7efjnp" path="res://Code/counter_zombie.gd" id="1_3n2k2"]
+
+[node name="Control" type="Control" unique_id=1905448559]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_3n2k2")
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="." unique_id=541526360]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_constants/outline_size = 7
