@@ -60,7 +60,7 @@ func _physics_process(delta: float) -> void:
 	#temporary Enemy Attacker Handler
 		if Input.is_action_just_pressed("Select"):
 			%pistal._ShootingAnimation()
-			if %RayCast3D.is_colliding() and %pistal.Ammo>0:
+			if %RayCast3D.is_colliding() and (%pistal.Ammo>0 or %pistal.Reloading==false):
 				var Collided:Node=%RayCast3D.get_collider()
 				if Collided and is_instance_valid(Collided) and Collided.has_method("DamageMe"):
 					Collided.DamageMe(PlayerDamage)
@@ -75,9 +75,9 @@ func DamageMe(EnemyDamage:float)->void:
 		print("attacked!")
 		Health-=EnemyDamage
 		damaged=true
+		%Sprite2D.self_modulate=100
 		await get_tree().create_timer(DamageShield).timeout
 		damaged=false
-		%Sprite2D.self_modulate=100
 	if Health<=0:
 		%Sprite2D.self_modulate.a=255
 		remove_from_group("Player")
