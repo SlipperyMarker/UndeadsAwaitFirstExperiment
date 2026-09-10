@@ -45,6 +45,7 @@ unique_name_in_owner = true
 transform = Transform3D(-4.808253e-09, 0, 0.11, 0, 0.11, 0, -0.11, 0, -4.808253e-09, 0, -0.235, -0.565)
 script = ExtResource("3_1m38d")
 RecoilKickAmount = 1.0
+RecoilRecoverySpeed = 25.0
 RecoilKickAmountX = 0.25
 HipPosition = Vector3(0, -0.235, -0.565)
 ADSPosition = Vector3(-0.415, -0.155, -0.565)

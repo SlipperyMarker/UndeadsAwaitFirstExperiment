@@ -86,6 +86,7 @@ func DamageMe(EnemyDamage:float)->void:
 		KillMe()
 func KillMe()->void:
 	alive=false
+	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 
 func _Healed()->void:
 	%Sprite2D.self_modulate=0
