@@ -94,7 +94,7 @@ func _Healed()->void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	#Automated InputHandlers
-	_PlayerMovementLook.MousePointerHandler(event)
+	_PlayerMovementLook.MousePointerHandler(event,alive)
 	_PlayerMovementLook.InputHandlerMouse(event)
 	_PlayerMovement.SprintHandler(event)
 	_PlayerMovement.JumpHandler(event)

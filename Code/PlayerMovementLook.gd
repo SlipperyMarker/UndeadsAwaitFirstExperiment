@@ -37,8 +37,9 @@ func MovementHandler()->void:
 	_Player.basis=Basis.from_euler(RotatorBody)
 	BodyRotate=0 ; HeadRotate=0
 
-func MousePointerHandler(event:InputEvent)->void:
-	if Input.mouse_mode==Input.MOUSE_MODE_CAPTURED and event.is_action_pressed("Back"):
-		Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
-	elif Input.mouse_mode==Input.MOUSE_MODE_VISIBLE and event.is_action_pressed("Select"):
-		Input.mouse_mode=Input.MOUSE_MODE_CAPTURED
+func MousePointerHandler(event:InputEvent,alive:bool)->void:
+	if alive:
+		if Input.mouse_mode==Input.MOUSE_MODE_CAPTURED and event.is_action_pressed("Back"):
+			Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
+		elif Input.mouse_mode==Input.MOUSE_MODE_VISIBLE and event.is_action_pressed("Select"):
+			Input.mouse_mode=Input.MOUSE_MODE_CAPTURED
