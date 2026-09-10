@@ -57,12 +57,14 @@ func _physics_process(delta: float) -> void:
 	if alive:
 		_PlayerMovementLook.MovementHandler()
 	#temporary Enemy Attacker Handler
-		if %RayCast3D.is_colliding():
-			var Collided:Node=%RayCast3D.get_collider()
-			if Collided and is_instance_valid(Collided) and Input.is_action_just_pressed("Select") and Collided.has_method("DamageMe"):
-				Collided.DamageMe(PlayerDamage)
+		if Input.is_action_just_pressed("Select"):
+			%pistal._ShootingAnimation()
+			if %RayCast3D.is_colliding():
+				var Collided:Node=%RayCast3D.get_collider()
+				if Collided and is_instance_valid(Collided) and Collided.has_method("DamageMe"):
+					Collided.DamageMe(PlayerDamage)
 
-func DamageMe(EnemyDamage)->void:
+func DamageMe(EnemyDamage:float)->void:
 	if !damaged:
 		print("attacked!")
 		Health-=EnemyDamage
@@ -83,3 +85,4 @@ func _unhandled_input(event: InputEvent) -> void:
 	_PlayerMovement.SprintHandler(event)
 	_PlayerMovement.JumpHandler(event)
 	_PlayerMovement.HeightHandler(event)
+	%pistal._AimDownSights(event,alive)

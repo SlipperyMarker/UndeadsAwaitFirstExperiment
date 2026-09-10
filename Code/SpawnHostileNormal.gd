@@ -19,4 +19,8 @@ func SpawnZombie()->void:
 	NewEnemy.global_position = %PathFollow3D.global_position
 func _HostileNormalKilled()->void:
 	HostileAmount+=1
+	if HostileAmount==MaxHostileAmount:
+		MaxHostileAmount*=1.2
+		HostileAmount=MaxHostileAmount
+		print("new wave, Zombie Amount: ",HostileAmount)
 	print("killed one enemy")
