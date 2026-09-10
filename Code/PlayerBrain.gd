@@ -58,12 +58,13 @@ func _physics_process(delta: float) -> void:
 	if alive:
 		_PlayerMovementLook.MovementHandler()
 	#temporary Enemy Attacker Handler
-		if Input.is_action_just_pressed("Select"):
-			%pistal._ShootingAnimation()
-			if %RayCast3D.is_colliding() and (%pistal.Ammo>0 and %pistal.Reloading==false):
-				var Collided:Node=%RayCast3D.get_collider()
-				if Collided and is_instance_valid(Collided) and Collided.has_method("DamageMe"):
-					Collided.DamageMe(PlayerDamage)
+		if Input.mouse_mode==Input.MOUSE_MODE_CAPTURED:
+			if Input.is_action_just_pressed("Select"):
+				%pistal._ShootingAnimation()
+				if %RayCast3D.is_colliding() and (%pistal.Ammo>0 and %pistal.Reloading==false):
+					var Collided:Node=%RayCast3D.get_collider()
+					if Collided and is_instance_valid(Collided) and Collided.has_method("DamageMe"):
+						Collided.DamageMe(PlayerDamage)
 
 func _GetMaxAmmo()->String:
 	return str(%pistal.MaxAmmo)
@@ -99,7 +100,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	_PlayerMovement.SprintHandler(event)
 	_PlayerMovement.JumpHandler(event)
 	_PlayerMovement.HeightHandler(event)
-	%pistal._AimDownSights(event,alive)
-	%pistal._ReloadAnimation(event,alive)
-	if event.is_action_pressed("MoveFast") and %pistal.aiming:
-		%pistal.aiming=false
+	if Input.mouse_mode==Input.MOUSE_MODE_CAPTURED:
+		%pistal._AimDownSights(event,alive)
+		%pistal._ReloadAnimation(event,alive)
+		if event.is_action_pressed("MoveFast") and %pistal.aiming:
+			%pistal.aiming=false

@@ -51,7 +51,6 @@ HipPosition = Vector3(0, -0.235, -0.565)
 ADSPosition = Vector3(-0.415, -0.155, -0.565)
 ADSSpeed = 25.0
 ReloadDipAmount = -14.0
-ReloadDipSpeed = 15.0
 MaxAmmo = 17
 EmptyDipAmount = 0.8
 EmptyDipAmountX = -0.4
