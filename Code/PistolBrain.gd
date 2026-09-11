@@ -24,6 +24,9 @@ var Reloading:=false
 var empty_current_z := 0.0
 var empty_current_x := 0.0
 var empty_current_pos_y := 0.0
+@onready var shooting: AudioStreamPlayer = %shooting
+@onready var cocking: AudioStreamPlayer = %cocking
+@onready var empty: AudioStreamPlayer = %empty
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Ammo=MaxAmmo
@@ -46,7 +49,11 @@ func _process(delta: float) -> void:
 	
 
 func _ShootingAnimation()->void:
+	if is_empty():
+		empty.play()
 	if not is_empty() and not Reloading:
+		shooting.pitch_scale=randf_range(0.75,1.5)
+		shooting.play()
 		recoil_current += randf_range(RecoilKickAmount*0.5,RecoilKickAmount*2.5)
 		recoil_current_x += randf_range(-RecoilKickAmountX*1.25,RecoilKickAmountX*1.25)
 		Ammo-=1
@@ -54,6 +61,7 @@ func _ShootingAnimation()->void:
 func _ReloadAnimation(event:InputEvent,alive:bool)->void:
 	if (Ammo<MaxAmmo and event.is_action_pressed("Reload") and alive and !Reloading):
 		Reloading=true
+		cocking.play()
 		reload_target_z = ReloadDipAmount
 		if is_empty():
 			await get_tree().create_timer(ReloadHoldTime).timeout
@@ -75,4 +83,3 @@ func _AimDownSights(event:InputEvent,alive:bool)->void:
 			aiming=false
 func is_empty() -> bool:
 	return Ammo <= 0
-#this entire script is ai written because i am on a time limit.

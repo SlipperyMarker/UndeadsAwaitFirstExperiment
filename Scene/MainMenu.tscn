@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://clgitdfpgf8g3"]
 
 [ext_resource type="Script" uid="uid://bjvudqvpkyo8v" path="res://Code/main_menu.gd" id="1_c6fb4"]
-[ext_resource type="Texture2D" uid="uid://btot5e85we3nd" path="res://Asset/Images/UAFE_Cover.png" id="1_rrxvj"]
+[ext_resource type="Texture2D" uid="uid://b6gfa4paafvxu" path="res://Asset/515uNo6pm2L._SR600,315_PIWhiteStrip,BottomLeft,0,35_SCLZZZZZZZ_FMpng_BG255,255,255.png" id="2_c6fb4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_57kga"]
 bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dcp6d"]
-texture = ExtResource("1_rrxvj")
+texture = ExtResource("2_c6fb4")
 modulate_color = Color(0.73300546, 0.7330054, 0.7330054, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dcp6d"]
@@ -45,10 +45,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 525.0
-offset_top = -59.0
-offset_right = 112.0
-offset_bottom = 327.28076
+offset_left = 322.0
+offset_top = -3.0
+offset_right = 322.84167
+offset_bottom = 135.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_dcp6d")
