@@ -17,6 +17,7 @@ extends RigidBody3D
 @export var stop_dist: float = 1.5
 var Player
 var ok:=true
+var alive:=true
 #Signals
 signal HostileNormalKilled
 #Logics
@@ -33,19 +34,24 @@ func _process(delta: float) -> void:
 		print("free")
 func DamageMe(addedDamage:float)->void:
 	Health-=addedDamage
-	if Health<=0:
-		KillMe()
 	ok=false
-	apply_impulse(basis.y*5, basis.z*0.05)
-	await get_tree().create_timer(3.5).timeout
-	ok=true
+	if Health<=0:
+		alive=false
+		apply_impulse(basis.y*2,basis.z*-1.5)
+		await get_tree().create_timer(3.5).timeout
+		KillMe()
+	if Health>0:
+		ok=false
+		apply_impulse(basis.y*5, basis.z*0.05)
+		await get_tree().create_timer(3.5).timeout
+		ok=true
 func KillMe()->void:
 	emit_signal("HostileNormalKilled")
 	self.queue_free()
 
 #Ai-generated code because i am running out of time
 func _integrate_forces(s):
-	if ok:
+	if ok==true and alive:
 		rotation.x=0
 		rotation.z=0
 		if Player==null: return
