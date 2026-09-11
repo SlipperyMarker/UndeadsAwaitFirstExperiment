@@ -25,6 +25,7 @@ const RotationSpeed:float=0.001
 var alive:=true
 var damaged:=false
 @export var DamageShield:float=2
+var dead:=false
 #-----Instanciation-----#
 #to use / interactw with the functions from another script, instanciate them here (outside of any functions). also check out static variables.
 var _PlayerMovement=PlayerMovement.new()
@@ -55,7 +56,7 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	#Camera Movement (its a little bit bad, there's a "Rubber band" effect when you drag your mouse too hard / fast and hit the vertical degree limit: it overshoots then corrects its self its kinda annoying.)
-	if alive:
+	if alive and not dead:
 		_PlayerMovementLook.MovementHandler()
 	#temporary Enemy Attacker Handler
 		if Input.mouse_mode==Input.MOUSE_MODE_CAPTURED:
@@ -65,6 +66,8 @@ func _physics_process(delta: float) -> void:
 					var Collided:Node=%RayCast3D.get_collider()
 					if Collided and is_instance_valid(Collided) and Collided.has_method("DamageMe"):
 						Collided.DamageMe(PlayerDamage)
+	if position.y<=-10:
+		KillMe()
 
 func _GetMaxAmmo()->String:
 	return str(%pistal.MaxAmmo)
@@ -80,13 +83,14 @@ func DamageMe(EnemyDamage:float)->void:
 		await get_tree().create_timer(DamageShield).timeout
 		damaged=false
 	if Health<=0:
-		%Sprite2D.self_modulate.a=255
 		remove_from_group("Player")
 		%pistal.aiming=false
 		%pistal.Ammo=0
 		KillMe()
 func KillMe()->void:
+	%Sprite2D.self_modulate.a=255
 	alive=false
+	dead=true
 	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 
 func _Healed()->void:
