@@ -9,6 +9,12 @@ func _ready() -> void:
 	remainingHostiles=HostileAmount
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if not %RootPlayer.alive:
+		%Control4.show()
+	if Input.is_action_just_pressed("Back") and Input.mouse_mode==Input.MOUSE_MODE_CAPTURED:
+		%PauseMenu.show()
+		Input.mouse_mode=Input.MOUSE_MODE_CONFINED
+		get_tree().paused=true
 	if spawnenable and HostileAmount==MaxHostileAmount:
 		WaveCounter+=1
 		for i in HostileAmount:

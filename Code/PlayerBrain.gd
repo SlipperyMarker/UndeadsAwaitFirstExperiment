@@ -43,6 +43,7 @@ func _ready() -> void:
 	Health=MaxHealth
 	var AttackRange:float=AttackRangeSetter*-1
 	%RayCast3D.target_position.z=AttackRange
+	Input.mouse_mode=Input.MOUSE_MODE_CAPTURED
 
 #-----Per-Frame Call------#
 
@@ -91,7 +92,7 @@ func KillMe()->void:
 	%Sprite2D.self_modulate.a=255
 	alive=false
 	dead=true
-	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
+	Input.mouse_mode=Input.MOUSE_MODE_CONFINED
 
 func _Healed()->void:
 	%Sprite2D.self_modulate=0
@@ -99,7 +100,7 @@ func _Healed()->void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	#Automated InputHandlers
-	_PlayerMovementLook.MousePointerHandler(event,alive)
+	#_PlayerMovementLook.MousePointerHandler(event,alive)
 	_PlayerMovementLook.InputHandlerMouse(event)
 	_PlayerMovement.SprintHandler(event)
 	_PlayerMovement.JumpHandler(event)

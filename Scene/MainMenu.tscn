@@ -1,3 +1,104 @@
 [gd_scene format=3 uid="uid://clgitdfpgf8g3"]
 
-[node name="Node2D" type="Node2D" unique_id=922736705]
+[ext_resource type="Script" uid="uid://bjvudqvpkyo8v" path="res://Code/main_menu.gd" id="1_c6fb4"]
+[ext_resource type="Texture2D" uid="uid://btot5e85we3nd" path="res://Asset/Images/UAFE_Cover.png" id="1_rrxvj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_57kga"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dcp6d"]
+texture = ExtResource("1_rrxvj")
+modulate_color = Color(0.73300546, 0.7330054, 0.7330054, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dcp6d"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_size = 9
+
+[node name="RootMainMenu" type="Control" unique_id=1400470939]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_c6fb4")
+
+[node name="Panel2" type="Panel" parent="." unique_id=239806344]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -322.0
+offset_top = -101.0
+offset_right = 526.0
+offset_bottom = 275.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_57kga")
+
+[node name="Panel" type="Panel" parent="." unique_id=1999170545]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 525.0
+offset_top = -59.0
+offset_right = 112.0
+offset_bottom = 327.28076
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_dcp6d")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=13833503]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 34.0
+offset_top = -129.0
+offset_right = 262.0
+offset_bottom = 129.0
+grow_vertical = 2
+theme_override_constants/separation = 19
+
+[node name="Button" type="Button" parent="VBoxContainer" unique_id=1974218736]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 31
+theme_override_styles/normal = SubResource("StyleBoxFlat_dcp6d")
+text = "START
+(ALPHA 1)"
+
+[node name="Button3" type="Button" parent="VBoxContainer" unique_id=600019776]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 31
+theme_override_styles/normal = SubResource("StyleBoxFlat_dcp6d")
+text = "QUIT
+(TO DESKTOP)"
+
+[node name="Label" type="Label" parent="." unique_id=2078981331]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -141.5
+offset_top = 32.0
+offset_right = 141.5
+offset_bottom = 81.0
+grow_horizontal = 2
+theme_override_constants/outline_size = 23
+theme_override_font_sizes/font_size = 26
+text = "UNDEADS AWAIT: FIRST EXPERIMENT
+(UNIVERSITY VERSION)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button3" to="." method="_on_exit_button_pressed"]

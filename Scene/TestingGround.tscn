@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://cfotgnlnjp0jm" path="res://Prefab/UI/CounterZombie.tscn" id="3_36ldg"]
 [ext_resource type="PackedScene" uid="uid://daphnbup1g6bs" path="res://Prefab/UI/player_health.tscn" id="5_hetx5"]
 [ext_resource type="PackedScene" uid="uid://bigd8jqf4cs7j" path="res://Prefab/UI/ammo.tscn" id="6_8bce3"]
+[ext_resource type="Script" uid="uid://csgnsgq1qkm6k" path="res://Code/DeathMenu.gd" id="7_5ukha"]
+[ext_resource type="Script" uid="uid://dc3rprvraq2qq" path="res://Code/pause_menu.gd" id="8_q30tq"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6ti6y"]
 sky_top_color = Color(0.43010014, 0.6501944, 0.9486361, 1)
@@ -29,6 +31,14 @@ _data = {
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
 }
 point_count = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q30tq"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_size = 9
 
 [node name="RootMaster" type="Node3D" unique_id=1856344525]
 script = ExtResource("1_4ri7c")
@@ -81,16 +91,31 @@ curve = SubResource("Curve3D_4ri7c")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D" unique_id=38229339]
 unique_name_in_owner = true
-transform = Transform3D(0.9998547, 9.5076815e-05, 0.016616676, 7.275905e-12, 0.99997, -0.0057216045, -0.016617049, 0.005720812, 0.99983233, 33.497585, -0.19203663, 20.674526)
+transform = Transform3D(0.99985427, 9.507678e-05, 0.01661667, 7.275902e-12, 0.9999696, -0.005721602, -0.016617041, 0.0057208096, 0.9998319, 33.497585, -0.19203663, 20.674526)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1017563147]
 
+[node name="Control2" type="Control" parent="CanvasLayer" unique_id=1170038186]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control2" unique_id=1657236621]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 80
+
+[node name="PlayerHealth" parent="CanvasLayer/Control2/HBoxContainer" unique_id=1680325266 instance=ExtResource("5_hetx5")]
+layout_mode = 2
+
 [node name="Control" type="Control" parent="CanvasLayer" unique_id=309555911]
 layout_mode = 3
-anchor_left = 0.029
-anchor_top = 0.029
-anchor_right = 0.029
-anchor_bottom = 0.029
+anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
@@ -103,8 +128,140 @@ theme_override_constants/separation = 36
 [node name="Control" parent="CanvasLayer/Control/VBoxContainer" unique_id=1905448559 instance=ExtResource("3_36ldg")]
 layout_mode = 2
 
-[node name="PlayerHealth" parent="CanvasLayer/Control/VBoxContainer" unique_id=1680325266 instance=ExtResource("5_hetx5")]
-layout_mode = 2
+[node name="Control3" type="Control" parent="CanvasLayer" unique_id=884099592]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
 
-[node name="Ammo" parent="CanvasLayer/Control/VBoxContainer" unique_id=1175836230 instance=ExtResource("6_8bce3")]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control3" unique_id=302158249]
+layout_mode = 1
+
+[node name="Ammo" parent="CanvasLayer/Control3" unique_id=1175836230 instance=ExtResource("6_8bce3")]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -20.0
+offset_bottom = 20.0
+grow_vertical = 2
+
+[node name="Control4" type="Control" parent="CanvasLayer" unique_id=1695573169]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_5ukha")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control4" unique_id=70208092]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -114.0
+offset_top = -89.0
+offset_right = 114.0
+offset_bottom = 89.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 19
+
+[node name="Button" type="Button" parent="CanvasLayer/Control4/VBoxContainer" unique_id=1875320019]
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 31
+theme_override_styles/normal = SubResource("StyleBoxFlat_q30tq")
+text = "Restart"
+
+[node name="Button3" type="Button" parent="CanvasLayer/Control4/VBoxContainer" unique_id=1065407777]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 31
+theme_override_styles/normal = SubResource("StyleBoxFlat_q30tq")
+text = "QUIT
+(TO DESKTOP)"
+
+[node name="PauseMenu" type="Control" parent="CanvasLayer" unique_id=1347269605]
+unique_name_in_owner = true
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_q30tq")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PauseMenu" unique_id=1783444837]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -104.0
+offset_top = -68.0
+offset_right = 104.0
+offset_bottom = 68.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 18
+
+[node name="Button" type="Button" parent="CanvasLayer/PauseMenu/VBoxContainer" unique_id=954699625]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 31
+theme_override_styles/normal = SubResource("StyleBoxFlat_q30tq")
+text = "Continue"
+
+[node name="Button2" type="Button" parent="CanvasLayer/PauseMenu/VBoxContainer" unique_id=1724947863]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 31
+theme_override_styles/normal = SubResource("StyleBoxFlat_q30tq")
+text = "Restart"
+
+[node name="Button3" type="Button" parent="CanvasLayer/PauseMenu/VBoxContainer" unique_id=376441058]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 31
+theme_override_styles/normal = SubResource("StyleBoxFlat_q30tq")
+text = "QUIT
+(TO DESKTOP)"
+
+[connection signal="pressed" from="CanvasLayer/Control4/VBoxContainer/Button" to="CanvasLayer/Control4" method="_on_restart_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control4/VBoxContainer/Button3" to="CanvasLayer/Control4" method="_on_exit_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/PauseMenu/VBoxContainer/Button" to="CanvasLayer/PauseMenu" method="_on_continue_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/PauseMenu/VBoxContainer/Button2" to="CanvasLayer/PauseMenu" method="_on_restart_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/PauseMenu/VBoxContainer/Button3" to="CanvasLayer/PauseMenu" method="_on_button_3_pressed"]
