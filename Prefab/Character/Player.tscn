@@ -1,6 +1,9 @@
 [gd_scene format=3 uid="uid://dcvx6mwanr8ij"]
 
 [ext_resource type="Script" uid="uid://157efkiol8ed" path="res://Code/PlayerBrain.gd" id="1_fr4uk"]
+[ext_resource type="PackedScene" uid="uid://b36mba8n42ri7" path="res://Asset/PlaceHolder/cgtrader/Adarshm/pistal.glb" id="2_qhybw"]
+[ext_resource type="Script" uid="uid://cchgsy3cur7y7" path="res://Asset/PlaceHolder/cgtrader/Adarshm/PistolBrain.gd" id="3_1m38d"]
+[ext_resource type="Texture2D" uid="uid://db2xkre3aud1x" path="res://Asset/PlaceHolder/cgtrader/Adarshm/pistal_silver metal_Mixed_AO-silver metal_Roughness.png" id="4_ioowf"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pilut"]
 
@@ -22,7 +25,7 @@ collision_mask = 5
 axis_lock_angular_z = true
 script = ExtResource("1_fr4uk")
 RotationSpeedMultiplier = 3.051
-AttackRangeSetter = 37.5
+AttackRangeSetter = 70.0
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=519775748]
 unique_name_in_owner = true
@@ -30,10 +33,34 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 cull_mask = 524287
 current = true
 
+[node name="Sprite2D" type="Sprite2D" parent="Camera3D" unique_id=2061190007]
+unique_name_in_owner = true
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(593, 231)
+scale = Vector2(1.2285156, 1)
+texture = ExtResource("4_ioowf")
+
+[node name="pistal" parent="Camera3D" unique_id=1466095089 instance=ExtResource("2_qhybw")]
+unique_name_in_owner = true
+transform = Transform3D(-4.808253e-09, 0, 0.11, 0, 0.11, 0, -0.11, 0, -4.808253e-09, 0, -0.235, -0.565)
+script = ExtResource("3_1m38d")
+RecoilKickAmount = 1.0
+RecoilRecoverySpeed = 25.0
+RecoilKickAmountX = 0.25
+HipPosition = Vector3(0, -0.235, -0.565)
+ADSPosition = Vector3(-0.415, -0.155, -0.565)
+ADSSpeed = 25.0
+ReloadDipAmount = -14.0
+MaxAmmo = 17
+EmptyDipAmount = 0.8
+EmptyDipAmountX = -0.4
+EmptyDipPositionY = -0.15
+EmptyDipSpeed = 4.0
+
 [node name="RayCast3D" type="RayCast3D" parent="Camera3D" unique_id=1715435344]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.18, 0)
 collision_mask = 4
+debug_shape_thickness = 4
 
 [node name="CollisionShape3DStanding" type="CollisionShape3D" parent="." unique_id=203953192]
 unique_name_in_owner = true
