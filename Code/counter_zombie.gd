@@ -2,6 +2,7 @@ extends Control
 @onready var root_master: Node3D = $"../../../.."
 @onready var label: Label = %Label
 var amount:String
+var round:String
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -9,5 +10,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if root_master:
 		amount=str(root_master.remainingHostiles)
-		label.text="Zombies Remaining "+amount
+		round=str(root_master.WaveCounter)
+		label.text="Zombies Remaining: "+amount+" / Current Wave: "+round
 	pass
