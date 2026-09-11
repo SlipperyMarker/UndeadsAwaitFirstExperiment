@@ -38,6 +38,9 @@ func DamageMe(addedDamage:float)->void:
 	if Health<=0:
 		alive=false
 		apply_impulse(basis.y*randf_range(0.05,2),basis.z*randf_range(-2.5,-0.5))
+		set_collision_layer_value(1,true)
+		set_collision_layer_value(3,false)
+		emit_signal("HostileNormalKilled")
 		await get_tree().create_timer(3.5).timeout
 		KillMe()
 	if Health>0:
@@ -46,7 +49,6 @@ func DamageMe(addedDamage:float)->void:
 		await get_tree().create_timer(3.5).timeout
 		ok=true
 func KillMe()->void:
-	emit_signal("HostileNormalKilled")
 	self.queue_free()
 
 #Ai-generated code because i am running out of time

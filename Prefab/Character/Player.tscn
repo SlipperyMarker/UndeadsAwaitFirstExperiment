@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://157efkiol8ed" path="res://Code/PlayerBrain.gd" id="1_fr4uk"]
 [ext_resource type="PackedScene" uid="uid://b36mba8n42ri7" path="res://Asset/PlaceHolder/cgtrader/Adarshm/pistal.glb" id="2_qhybw"]
-[ext_resource type="Script" uid="uid://cchgsy3cur7y7" path="res://Asset/PlaceHolder/cgtrader/Adarshm/PistolBrain.gd" id="3_1m38d"]
+[ext_resource type="Script" uid="uid://cchgsy3cur7y7" path="res://Code/PistolBrain.gd" id="3_1m38d"]
 [ext_resource type="Texture2D" uid="uid://db2xkre3aud1x" path="res://Asset/PlaceHolder/cgtrader/Adarshm/pistal_silver metal_Mixed_AO-silver metal_Roughness.png" id="4_ioowf"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pilut"]
@@ -44,7 +44,7 @@ texture = ExtResource("4_ioowf")
 unique_name_in_owner = true
 transform = Transform3D(-4.808253e-09, 0, 0.11, 0, 0.11, 0, -0.11, 0, -4.808253e-09, 0, -0.235, -0.565)
 script = ExtResource("3_1m38d")
-RecoilKickAmount = 1.0
+RecoilKickAmount = 0.75
 RecoilRecoverySpeed = 25.0
 RecoilKickAmountX = 0.25
 HipPosition = Vector3(0, -0.235, -0.565)

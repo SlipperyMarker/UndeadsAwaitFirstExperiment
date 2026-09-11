@@ -3,12 +3,14 @@ var spawnenable:=true
 @export var MaxHostileAmount:int=10
 var HostileAmount:int
 var remainingHostiles:int
+var WaveCounter:int=0
 func _ready() -> void:
 	HostileAmount=MaxHostileAmount
 	remainingHostiles=HostileAmount
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if spawnenable and HostileAmount==MaxHostileAmount:
+		WaveCounter+=1
 		for i in HostileAmount:
 			SpawnZombie()
 		remainingHostiles=HostileAmount
@@ -23,7 +25,10 @@ func _HostileNormalKilled()->void:
 	HostileAmount+=1
 	remainingHostiles-=1
 	if HostileAmount==MaxHostileAmount:
-		MaxHostileAmount*=1.2
+		if WaveCounter==10:
+			MaxHostileAmount=100
+		elif WaveCounter<10:
+			MaxHostileAmount*=1.2
 		HostileAmount=MaxHostileAmount
 		remainingHostiles=HostileAmount
 		if %RootPlayer:

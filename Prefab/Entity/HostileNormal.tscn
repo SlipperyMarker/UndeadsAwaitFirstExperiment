@@ -2,13 +2,16 @@
 
 [ext_resource type="Script" uid="uid://ddr73gj5j223n" path="res://Code/HostileNormalBrain.gd" id="1_5be34"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_57kga"]
-albedo_color = Color(0.9411765, 0.15686275, 0, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dh0p5"]
+albedo_color = Color(1, 0, 0, 1)
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_dcp6d"]
-material = SubResource("StandardMaterial3D_57kga")
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_dysk7"]
+material = SubResource("StandardMaterial3D_dh0p5")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dcp6d"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_dcp6d"]
+size = Vector3(0.135, 0.155, 1)
 
 [node name="RootHostileNormal" type="RigidBody3D" unique_id=1284982535]
 collision_layer = 4
@@ -18,13 +21,21 @@ script = ExtResource("1_5be34")
 MaxHealth = 4.0
 Health = 4.0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=931502039]
-mesh = SubResource("CapsuleMesh_dcp6d")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1472352500]
+mesh = SubResource("CapsuleMesh_dysk7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1576014454]
 shape = SubResource("CapsuleShape3D_dcp6d")
 
 [node name="RayCast3D" type="RayCast3D" parent="." unique_id=630875987]
 unique_name_in_owner = true
-target_position = Vector3(0, 0, -2)
+target_position = Vector3(0, 0, -1.25)
 collision_mask = 2
+
+[node name="leftarm" type="MeshInstance3D" parent="." unique_id=1287316750]
+transform = Transform3D(1, 0, 0, 0, 0.90630776, 0.42261827, 0, -0.42261827, 0.90630776, 0.5, 0, -0.57)
+mesh = SubResource("BoxMesh_dcp6d")
+
+[node name="rightarm" type="MeshInstance3D" parent="." unique_id=1486931479]
+transform = Transform3D(1, 0, 0, 0, 0.90630776, 0.42261827, 0, -0.42261827, 0.90630776, -0.5, 0, -0.57)
+mesh = SubResource("BoxMesh_dcp6d")
