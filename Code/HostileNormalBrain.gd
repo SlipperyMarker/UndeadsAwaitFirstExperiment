@@ -37,12 +37,12 @@ func DamageMe(addedDamage:float)->void:
 	ok=false
 	if Health<=0:
 		alive=false
-		apply_impulse(basis.y*2,basis.z*-1.5)
+		apply_impulse(basis.y*randf_range(0.05,2),basis.z*randf_range(-2.5,-0.5))
 		await get_tree().create_timer(3.5).timeout
 		KillMe()
 	if Health>0:
 		ok=false
-		apply_impulse(basis.y*5, basis.z*0.05)
+		apply_impulse(basis.y*randf_range(0.2,5), basis.z*randf_range(0.05,0.5))
 		await get_tree().create_timer(3.5).timeout
 		ok=true
 func KillMe()->void:
