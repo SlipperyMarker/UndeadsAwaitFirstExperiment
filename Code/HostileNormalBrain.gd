@@ -24,6 +24,9 @@ signal HostileNormalKilled
 func _ready() -> void:
 	#no more need to Hard Wire the player finding methods. thanks Claude
 	Player = get_tree().get_first_node_in_group("Player")
+	await get_tree().create_timer(randf_range(0,3)).timeout
+	%walking.pitch_scale=randf_range(0.75,1.25)
+	%walking.play()
 func _process(delta: float) -> void:
 	if %RayCast3D.is_colliding() and ok:
 		var Collided:Node=%RayCast3D.get_collider()
@@ -36,16 +39,21 @@ func _process(delta: float) -> void:
 func DamageMe(addedDamage:float)->void:
 	Health-=addedDamage
 	ok=false
+	%walking.stream_paused=true
 	if Health<=0:
 		alive=false
 		apply_impulse(basis.y*randf_range(0.05,2),basis.z*randf_range(-2.5,-0.5))
 		set_collision_layer_value(1,true)
 		set_collision_layer_value(3,false)
+		%dying.pitch_scale=randf_range(0.5,1.5)
+		%dying.play()
 		emit_signal("HostileNormalKilled")
 		await get_tree().create_timer(3.5).timeout
 		KillMe()
 	if Health>0:
 		ok=false
+		%slip.pitch_scale=randf_range(0.5,2)
+		%slip.play()
 		apply_impulse(basis.y*randf_range(0.2,5), basis.z*randf_range(0.05,0.5))
 		await get_tree().create_timer(3.5).timeout
 		ok=true
@@ -55,6 +63,7 @@ func KillMe()->void:
 #Ai-generated code because i am running out of time
 func _integrate_forces(s):
 	if ok==true and alive:
+		%walking.stream_paused=false
 		rotation.x=0
 		rotation.z=0
 		if Player==null: return

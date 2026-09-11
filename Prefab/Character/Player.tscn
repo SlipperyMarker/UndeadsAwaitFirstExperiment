@@ -4,6 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://b36mba8n42ri7" path="res://Asset/PlaceHolder/cgtrader/Adarshm/pistal.glb" id="2_qhybw"]
 [ext_resource type="Script" uid="uid://cchgsy3cur7y7" path="res://Code/PistolBrain.gd" id="3_1m38d"]
 [ext_resource type="Texture2D" uid="uid://db2xkre3aud1x" path="res://Asset/PlaceHolder/cgtrader/Adarshm/pistal_silver metal_Mixed_AO-silver metal_Roughness.png" id="4_ioowf"]
+[ext_resource type="AudioStream" uid="uid://cqvkphn4ny8lh" path="res://Asset/universfield-pistol-shot-278821.mp3" id="5_3kbiv"]
+[ext_resource type="AudioStream" uid="uid://cet8y8liuyoq4" path="res://Asset/freesound_community-pistol-cock-6014.mp3" id="6_u2b7o"]
+[ext_resource type="AudioStream" uid="uid://7vr0wef75toi" path="res://Asset/freesound_community-empty-gun-shot-6209.mp3" id="7_rhb8r"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pilut"]
 
@@ -57,6 +60,22 @@ EmptyDipAmountX = -0.4
 EmptyDipPositionY = -0.15
 EmptyDipSpeed = 4.0
 
+[node name="shooting" type="AudioStreamPlayer" parent="Camera3D/pistal" unique_id=1632770800]
+unique_name_in_owner = true
+stream = ExtResource("5_3kbiv")
+volume_db = -8.0
+max_polyphony = 3
+
+[node name="cocking" type="AudioStreamPlayer" parent="Camera3D/pistal" unique_id=667541597]
+unique_name_in_owner = true
+stream = ExtResource("6_u2b7o")
+volume_db = -5.0
+
+[node name="empty" type="AudioStreamPlayer" parent="Camera3D/pistal" unique_id=1530813707]
+unique_name_in_owner = true
+stream = ExtResource("7_rhb8r")
+volume_db = -10.0
+
 [node name="RayCast3D" type="RayCast3D" parent="Camera3D" unique_id=1715435344]
 unique_name_in_owner = true
 collision_mask = 4
@@ -79,3 +98,6 @@ debug_color = Color(0.9817937, 0, 0.37205806, 0.41960785)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3DCrouch" unique_id=404193309]
 mesh = SubResource("CapsuleMesh_57kga")
+
+[node name="AudioListener3D" type="AudioListener3D" parent="." unique_id=2093385482]
+current = true
