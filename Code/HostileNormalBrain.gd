@@ -29,8 +29,9 @@ func _process(delta: float) -> void:
 		var Collided:Node=%RayCast3D.get_collider()
 		if Collided and is_instance_valid(Collided) and Collided.has_method("DamageMe"):
 			Collided.DamageMe(Damage)
-	if self.position.y<=-5 and is_instance_valid(self):
+	if self.position.y<=0 and is_instance_valid(self):
 		KillMe()
+		emit_signal("HostileNormalKilled")
 		print("free")
 func DamageMe(addedDamage:float)->void:
 	Health-=addedDamage

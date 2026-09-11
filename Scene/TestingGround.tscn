@@ -81,7 +81,7 @@ curve = SubResource("Curve3D_4ri7c")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D" unique_id=38229339]
 unique_name_in_owner = true
-transform = Transform3D(0.99985474, 9.507682e-05, 0.016616678, 7.2759056e-12, 0.9999701, -0.005721605, -0.016617049, 0.0057208124, 0.9998324, 33.497585, -0.19203663, 20.674526)
+transform = Transform3D(0.9998547, 9.5076815e-05, 0.016616676, 7.275905e-12, 0.99997, -0.0057216045, -0.016617049, 0.005720812, 0.99983233, 33.497585, -0.19203663, 20.674526)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1017563147]
 
